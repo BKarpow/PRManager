@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+@include('layouts.head')
+<title> @yield('title') {{ config('app.name', 'Laravel') }}</title>
+</head>
+<body>
+    <div id="app">
+        @include('layouts.nav')
+        @if (session('status'))
+        <div class="container m-1">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-4">
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        @endif
+        @if (auth()->check())
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span id="userId">User ID: <span id="userIdValue">{{auth()->user()->id}}</span></span>
+                    </div>
+                    <!-- /.col-md-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        @endif
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+</body>
+</html>
