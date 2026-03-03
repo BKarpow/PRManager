@@ -100,7 +100,10 @@ class TelegramHandlerController extends Controller
             return;
         }
         $u = User::find($user_id);
-        if (!$u) $this->setStatusChatId($chat_id, TelegramHandler::STATUS_ERROR);
+        if (!$u) {
+            $this->sendText("Користувача на сайті з цим номером не знайдено!");
+            return;
+        }
         $t = new TelegramHandler();
         $t->chat_id =  $chat_id;
         $t->user_id = $u->id;
@@ -123,7 +126,7 @@ class TelegramHandlerController extends Controller
         }
         $s = TelegramHandler::where('chat_id', $this->chatID)->first();
         if (!$u || TelegramHandler::where('user_id', $u->id)->first()) {
-            $this->setStatusChatId($this->chatID, TelegramHandler::STATUS_ERROR);
+            $this->sendText("Користувача на сайті з цим номером не знайдено!");
             return;
         }
         if ($s) {

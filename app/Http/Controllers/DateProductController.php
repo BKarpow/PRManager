@@ -128,7 +128,8 @@ class DateProductController extends Controller
         $d->end = $request->end;
         $d->count = $request->count ?? 1;
         $d->save();
-        return redirect()->route('date.index')->withStatus('Додано новий термін');
+
+        return redirect()->route('date.index')->withStatus('Додано термін: '.$d->product->name);
     }
 
     /**
@@ -156,7 +157,7 @@ class DateProductController extends Controller
      */
     public function edit(DateProduct $dateProduct)
     {
-        //
+        return view('exp.edit' , ['item' => $dateProduct]);
     }
 
     /**
@@ -164,7 +165,10 @@ class DateProductController extends Controller
      */
     public function update(UpdateDateProductRequest $request, DateProduct $dateProduct)
     {
-        //
+        // dd($dateProduct);
+    $dateProduct->end = $request->end;
+        $dateProduct->save();
+        return redirect()->route('home')->withStatus('Оновлено термін');
     }
 
     /**

@@ -48,4 +48,8 @@ class DateProduct extends Model
     {
         return $this->days_remaining <= 7;
     }
+
+    public function getEndDate() {
+        return date('d.m.y', strtotime($this->end));
+    }
 }

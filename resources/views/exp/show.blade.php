@@ -11,8 +11,8 @@
 
                     <div class="card-body">
                         <div class="my-2 p-1">
-                            <a href="{{route('date.create')}}" class="btn btn-dark btn-lg">
-                            Додати новий термін
+                            <a href="{{route('date.edit', ['dateProduct' => $t])}}" class="btn btn-success btn-lg">
+                            Змінити цей термін
                         </a>
                         </div>
                         <!-- /.my-2 p-1 -->

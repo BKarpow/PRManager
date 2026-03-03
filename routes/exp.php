@@ -27,6 +27,12 @@ Route::get($prefixRoute.'/create', [DateProductController::class, 'create'])
 Route::post($prefixRoute.'/create', [DateProductController::class, 'store'])
 ->name('date.create');
 
+Route::get($prefixRoute.'/edit/{dateProduct}', [DateProductController::class, 'edit'])
+->name('date.edit');
+
+Route::post($prefixRoute.'/edit/{dateProduct}', [DateProductController::class, 'update'])
+->name('date.edit');
+
 // dateExists
 
 Route::post($prefixRoute.'/info/exists', [DateProductController::class, 'dateExists'])
