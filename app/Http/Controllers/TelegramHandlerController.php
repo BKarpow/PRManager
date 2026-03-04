@@ -151,6 +151,7 @@ class TelegramHandlerController extends Controller
             $text .= "Телефон: {$tu->user->phone}.\n";
         } else {
             $text = "Помилка отримання даних на сайті.\n";
+            $this->cleanerEmpty($this->chatID);
         }
         $this->sendText($text);
     }

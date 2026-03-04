@@ -21,7 +21,7 @@ class DateProductPolicy
      */
     public function view(User $user, DateProduct $dateProduct): bool
     {
-        return false;
+        return $dateProduct->user->configDefaultGroup() == $user->configDefaultGroup();
     }
 
     /**
@@ -37,7 +37,7 @@ class DateProductPolicy
      */
     public function update(User $user, DateProduct $dateProduct): bool
     {
-        return false;
+        return $dateProduct->user_id == $user->id;
     }
 
     /**
@@ -45,7 +45,7 @@ class DateProductPolicy
      */
     public function delete(User $user, DateProduct $dateProduct): bool
     {
-        return false;
+        return $dateProduct->user_id == $user->id;;
     }
 
     /**

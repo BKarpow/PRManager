@@ -9,6 +9,8 @@ use App\Policies\ShopPolicy;
 use App\Models\GroupProduct;
 use App\Policies\GroupProductPolicy;
 use App\Models\Product;
+use App\Models\DateProduct;
+use App\Policies\DateProductPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Pagination\Paginator;
 
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
        Gate::policy(Shop::class, ShopPolicy::class);
        Gate::policy(Product::class, ProductPolicy::class);
        Gate::policy(GroupProduct::class, GroupProductPolicy::class);
+       Gate::policy(DateProduct::class, DateProductPolicy::class);
        Paginator::useBootstrapFive();
     }
 }

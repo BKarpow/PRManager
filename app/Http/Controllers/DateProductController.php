@@ -157,6 +157,7 @@ class DateProductController extends Controller
      */
     public function edit(DateProduct $dateProduct)
     {
+        $this->authorize('update', DateProduct::class);
         return view('exp.edit' , ['item' => $dateProduct]);
     }
 
@@ -166,6 +167,7 @@ class DateProductController extends Controller
     public function update(UpdateDateProductRequest $request, DateProduct $dateProduct)
     {
         // dd($dateProduct);
+        $this->authorize('update', DateProduct::class);
     $dateProduct->end = $request->end;
     $dateProduct->comment = $request->comment ?? '';
         $dateProduct->save();
@@ -177,7 +179,9 @@ class DateProductController extends Controller
      */
     public function destroy(DateProduct $dateProduct)
     {
-        //
+        $this->authorize('delete', DateProduct::class);
+        $dateProduct->delete();
+        return redirect()->route('home')->withStatus("Продукт видалено.");
     }
 
     public function dateExists(Request $request)
