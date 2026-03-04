@@ -167,8 +167,9 @@ class DateProductController extends Controller
     {
         // dd($dateProduct);
     $dateProduct->end = $request->end;
+    $dateProduct->comment = $request->comment ?? '';
         $dateProduct->save();
-        return redirect()->route('home')->withStatus('Оновлено термін');
+        return redirect()->route('index')->withStatus('Оновлено термін');
     }
 
     /**

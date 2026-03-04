@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
-@section('title') Реєстрація @endsection
+@section('title') Створення акаунту @endsection
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">Реєстрація</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                <label for="name" class="col-md-4 col-form-label text-md-end">
+                                    Вкажіть ваше ім'я
+                                </label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -29,8 +31,6 @@
                             </div>
 
                             <div class="row mb-3">
-
-
                                     <phone-input></phone-input>
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -41,7 +41,9 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">
+                                    Пароль
+                                </label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -58,7 +60,9 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">
+                                    Повторіть пароль
+                                </label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -72,7 +76,7 @@
                                     <select-shop></select-shop>
                                     @error('shopid')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>Невірно вибрана ваша ТТ</strong>
+                                            <strong>Невірно вибрана ваш магазин</strong>
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
