@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Rules\ReCaptcha;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -39,7 +41,16 @@ class LoginController extends Controller
     }
 
     public function username()
-{
-    return 'phone';
-}
+    {
+        return 'phone';
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            // 'g-recaptcha-response' => ['required', new ReCaptcha]
+        ]);
+    }
 }

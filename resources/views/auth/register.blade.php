@@ -90,6 +90,7 @@
                                 <!-- /.col-md-6 -->
                             </div>
                             <!-- /.mb-2 -->
+                            @include('recaptcha')
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

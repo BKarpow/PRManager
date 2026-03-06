@@ -35,14 +35,7 @@
                                             </div>
                                             <!-- /.alert alert-warning -->
                                         @enderror
-                                        <div class="mb-2">
-                                            <label for="comment">Коментар терміну</label>
-                                            <textarea name="comment" id="comment"
-                                            placeholder="Коментар до терміну"
-                                            cols="30" rows="4" maxlength="250" class="form-control">{{$item->comment}}</textarea>
 
-                                        </div>
-                                        <!-- /.form-group -->
                                         <div class="mb-2">
                                             <button type="submit" class="btn btn-primary">
                                                 Зберегти
@@ -54,10 +47,7 @@
                                     </form>
                                 </div>
                                 <!-- /.col-md-6 -->
-                                <div class="col-md-6">
-
-                                </div>
-                                <!-- /.col-md-6 -->
+                                
                             </div>
                             <!-- /.row -->
                         </div>
