@@ -25,27 +25,27 @@ Route::get('/', function () {
 //     dd(file_get_contents('http://195.201.133.94:8000/bestbefore/v1/barcode?barcode=4820250941894'));
 // });
 
-// Route::get('/run-migrations', function () {
-//     try {
-//         // Виконуємо команду 'migrate'
-//         Artisan::call('migrate', ['--force' => true]);
+Route::get('/run-migrations', function () {
+    try {
+        // Виконуємо команду 'migrate'
+        Artisan::call('migrate', ['--force' => true]);
 
-//         // Отримуємо результат виконання команди
-//         $output = Artisan::output();
+        // Отримуємо результат виконання команди
+        $output = Artisan::output();
 
-//         return response()->json([
-//             'status' => 'success',
-//             'message' => 'Міграції виконано успішно.',
-//             'output' => $output
-//         ]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Міграції виконано успішно.',
+            'output' => $output
+        ]);
 
-//     } catch (\Exception $e) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => 'Помилка під час виконання міграцій: ' . $e->getMessage()
-//         ], 500);
-//     }
-// })->middleware('web');
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Помилка під час виконання міграцій: ' . $e->getMessage()
+        ], 500);
+    }
+})->middleware('web');
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\DateProductController::class, 'index'])->name('index');

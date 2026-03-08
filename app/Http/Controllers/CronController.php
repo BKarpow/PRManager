@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Events\SendExpire;
-use App\Jobs\SendExpsJob
+use App\Jobs\SendExpsJob;
 
 class CronController extends Controller
 {
