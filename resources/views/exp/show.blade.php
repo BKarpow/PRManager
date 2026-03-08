@@ -18,6 +18,7 @@
                                 <a href="{{ route('date.edit', ['dateProduct' => $t]) }}" class="btn btn-success btn-lg">
                                     Змінити цей термін
                                 </a>
+                                <delete-btn name-item="Термін" url-delete="{{ route('date.delete', ['dateProduct' => $t]) }}"></delete-btn>
                             @endcan
                             @cannot('update', $t)
                                 <span class="badge bg-secondary">Тільки для читання, створено користувачем

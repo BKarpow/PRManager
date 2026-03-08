@@ -38,6 +38,9 @@ Route::post($prefixRoute.'/edit/{dateProduct}', [DateProductController::class, '
 Route::post($prefixRoute.'/info/exists', [DateProductController::class, 'dateExists'])
 ->name('date.info.exists');
 
+Route::get($prefixRoute.'/del/{dateProduct}', [DateProductController::class, 'destroy'])
+->name('date.delete');
+
 $prefixRoute = null;
 $nameAlias = null;
 

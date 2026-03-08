@@ -28,6 +28,8 @@ import InputDate from './components/InputDate.vue';
 import CreateNewDateProduct from './components/CreateNewDateProduct.vue';
 import SelectShopAndGroup from './components/SelectShopAndGroup.vue';
 import PhoneInput from './components/PhoneInput.vue';
+import DeleteButton from './components/DeleteButton.vue';
+app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
 app.component('input-barcode', InputBarcode);
