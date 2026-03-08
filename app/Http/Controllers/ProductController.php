@@ -17,22 +17,28 @@ class ProductController extends Controller
         $res = Product::whereBarcode($code)->first();
         if ($res) {
             return [
-            'status_code' => 200,
-            'isDB' => true,
-            'json_response' => ['name' => $res->name, 'id' => $res->id, 'comment' =>$res->comment], // якщо очікується JSON
+                'status_code' => 200,
+                'isDB' => true,
+                'json_response' => ['name' => $res->name, 'id' => $res->id, 'comment' => $res->comment], // якщо очікується JSON
             ];
         }
 
         $response = Http::withHeaders([
             'User-Agent' => "okhttp/3.14.9",
         ])->get("http://195.201.133.94:8000/bestbefore/v1/barcode", ['barcode' => $code]);
-        if (isset($response->json()['name']) ) {
-            if ($response->json()['name'] != null) {
-                $p = new Product();
-                $p->barcode = $code;
-                $p->name = $response->json()['name'];
-                $p->save();
-            }
+        if ($response->json()['name'] != null) {
+
+            $p = new Product();
+            $p->barcode = $code;
+            $p->name = $response->json()['name'];
+            $p->save();
+        } else {
+            return [
+                'status_code' => 205,
+                'response' => "",
+                'isDB' => false,
+                'json_response' => "", // якщо очікується JSON
+            ];
         }
 
         return [
@@ -69,7 +75,8 @@ class ProductController extends Controller
         return view('product.create');
     }
 
-    private function stringToBoolConv(string $val) : bool {
+    private function stringToBoolConv(string $val): bool
+    {
         if ($val === "true") return true;
         elseif ($val === "false") return false;
         else return false;

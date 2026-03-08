@@ -143,7 +143,7 @@ class DateProductController extends Controller
             'products' => DateProduct::select('*')->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
 
             ->where([
-                ['user_id', '=', $dateProduct->user_id],
+
                 ['product_id', '=', $dateProduct->product_id],
                 ['end', '>=', now()->format('Y-m-d')],
                 ['id', '!=', $dateProduct->id]
@@ -180,7 +180,7 @@ class DateProductController extends Controller
     {
         $this->authorize('delete', $dateProduct);
         $dateProduct->delete();
-        return redirect()->route('home')->withStatus("Продукт видалено.");
+        return redirect()->route('home')->withStatus("Термін видалено.");
     }
 
     public function dateExists(Request $request)
@@ -190,18 +190,20 @@ class DateProductController extends Controller
             'group_id' => 'required|numeric|exists:group_products,id',
             'end' => 'required|date'
         ]);
+        $de = date('Y-m-d', strtotime($request->end. " 00:00:00"));
+
         $d = DateProduct::where([
             ['product_id', '=', $request->product_id],
             ['group_id', '=', $request->group_id],
-            ['end', '=', $request->end],
+            ['end', '=', $de],
         ])->first();
         $exists = (bool)$d;
         return response()->json([
             'exists' => $exists,
             'dateProductId' => ($exists) ? $d->id : 0,
-            'userNameCreateor' => $d->user->name,
-            'userIdCreateor' => $d->user->id,
-            'updatedAt' => $d->updated_at->format('d.m.Y')
+            'userNameCreateor' => ($exists) ? $d->user->name : 0,
+            'userIdCreateor' => ($exists) ?  $d->user->id : 0,
+            'updatedAt' => ($exists) ? $d->updated_at->format('d.m.Y') : 0
         ]);
     }
 }

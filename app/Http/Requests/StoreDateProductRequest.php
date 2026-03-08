@@ -22,7 +22,7 @@ class StoreDateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'barcode' => 'required|numeric|exists:products,barcode',
+            'barcode' => 'required|numeric',
             'group' => 'required|numeric|exists:group_products,id',
 
             'start' => 'required|date',

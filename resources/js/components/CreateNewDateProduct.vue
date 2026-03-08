@@ -140,6 +140,7 @@
                 v-model="isExistsProduct"
             />
             <input type="hidden" name="group" v-model="groupId" />
+            <input type="hidden" name="newProduct" v-model="isNewProduct" />
             <input
                 type="hidden"
                 name="product_id"
@@ -224,6 +225,7 @@ export default {
             loadGroupList: false,
             groupId: 0,
             dateExists: false,
+            isNewProduct: false
         };
     },
     computed: {
@@ -321,6 +323,11 @@ export default {
                 .then((resp) => {
                     console.debug("response get name", resp);
                     if (resp.status == 200) {
+                    if (resp.data.status_code == 205) {
+                         //Невідомий товар
+                        this.isNewProduct = true;
+                        return;
+                    } 
                         this.isExistsProduct = resp.data.isDB;
                         this.name = resp.data.json_response.name;
                         if (resp.data.isDB) {
