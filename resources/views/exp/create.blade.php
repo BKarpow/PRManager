@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-11">
-                
+
                 <div class="card">
                     <div class="card-header">Новий термін</div>
 
@@ -31,7 +31,7 @@
 
                         </div> --}}
                         <!-- /.my-2 p-1 -->
-
+                                        
                                         <div class="mb-2">
                                             <create-date></create-date>
 

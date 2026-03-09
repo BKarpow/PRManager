@@ -19,6 +19,8 @@
                 </div>
             </div>
 
+
+
             <ImageUploader
                 v-if="isBarcodeValid && !isExistsImage"
                 :product-id="barcode"
@@ -55,6 +57,11 @@
                 />
             </div>
             <!-- /.form-group -->
+
+            <div class="mb-2">
+                <ShowMagnify />
+            </div>
+
             <div class="mb-2">
                 <!--
 <div class="form-floating">
@@ -191,6 +198,7 @@ import InputBarcode from "./InputBarcode.vue";
 import InputDate from "./InputDate.vue";
 import ImageUploader from "./ImageUploader.vue";
 import SelectGroup from "./SelectGroup.vue";
+import ShowMagnify from "./ShowMagnify.vue";
 import axios from "axios";
 
 export default {
@@ -200,6 +208,7 @@ export default {
         ImageUploader,
         InputDate,
         SelectGroup,
+        ShowMagnify,
     },
     data() {
         return {
@@ -327,7 +336,7 @@ export default {
                          //Невідомий товар
                         this.isNewProduct = true;
                         return;
-                    } 
+                    }
                         this.isExistsProduct = resp.data.isDB;
                         this.name = resp.data.json_response.name;
                         if (resp.data.isDB) {
