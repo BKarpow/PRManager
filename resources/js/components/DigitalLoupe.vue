@@ -14,9 +14,19 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 mb-4">
+        <button
+        type="button"
+        :class="['btn', torchActive ? 'btn-primary' : 'btn-outline-primary']"
+        class="rounded-circle p-3 shadow-sm"
+        style="width: 60px; height: 60px;"
+        @click="toggleTorch()"
+        ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
+  <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5"/>
+</svg></button>
       <button
         v-for="zoomLevel in [1, 3, 5, 10]"
         :key="zoomLevel"
+        type="button"
         @click="setZoom(zoomLevel)"
         :class="['btn', currentZoom === zoomLevel ? 'btn-primary' : 'btn-outline-primary']"
         class="rounded-circle p-3 shadow-sm"
@@ -40,7 +50,9 @@ export default {
       stream: null,
       track: null,
       currentZoom: 1,
-      error: null
+      error: null,
+      hasTorch: false,
+    torchActive: false
 
     };
   },
@@ -56,31 +68,32 @@ export default {
   },
   methods: {
     async initCamera() {
-      try {
-        // Запитуємо доступ до задньої камери
-        this.stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { exact: "environment" },
-            // Можна додати бажану роздільну здатність
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          }
-        });
+  try {
+    this.stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment" }
+    });
+    this.track = this.stream.getVideoTracks()[0];
+    const caps = this.track.getCapabilities();
 
-        this.$refs.video.srcObject = this.stream;
+    // Перевіряємо чи є ліхтарик
+    this.hasTorch = !!caps.torch;
 
-        // Отримуємо відео трек для керування налаштуваннями
-        this.track = this.stream.getVideoTracks()[0];
+    this.$refs.video.srcObject = this.stream;
+  } catch (err) {
+    this.error = "Камера недоступна";
+  }
+},
 
-        // Перевірка підтримки зуму
-        const capabilities = this.track.getCapabilities();
-        if (!capabilities.zoom) {
-          this.error = "Ваш пристрій не підтримує апаратний зум у браузері.";
-        }
-      } catch (err) {
-        this.error = "Помилка доступу до камери: " + err.message;
-      }
-    },
+async toggleTorch() {
+  this.torchActive = !this.torchActive;
+  try {
+    await this.track.applyConstraints({
+      advanced: [{ torch: this.torchActive }]
+    });
+  } catch (e) {
+    console.error("Ліхтарик не підтримується");
+  }
+},
 
     async setZoom(level) {
         window.localStorage.setItem(lcKey, level);
