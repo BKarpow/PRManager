@@ -29,6 +29,7 @@ import CreateNewDateProduct from './components/CreateNewDateProduct.vue';
 import SelectShopAndGroup from './components/SelectShopAndGroup.vue';
 import PhoneInput from './components/PhoneInput.vue';
 import DeleteButton from './components/DeleteButton.vue';
+import DigitalLoupe from './components/DigitalLoupe.vue';
 app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
@@ -39,6 +40,7 @@ app.component('create-date', CreateNewDateProduct);
 app.component('image-modal', ImageModal);
 app.component('select-shop', SelectShopAndGroup );
 app.component('phone-input', PhoneInput );
+app.component('zoom', DigitalLoupe );
 
 /**
  * The following block of code may be used to automatically register your

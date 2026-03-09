@@ -41,6 +41,12 @@
                     <!-- /.nav-link -->
                 </li>
                 <!-- /.nav-item -->
+                <li class="nav-item">
+                    <a href="{{route('tools')}}" class="nav-link">
+                        Інструменти
+                    </a> <!-- /.nav-link -->
+                    </li>
+                <!-- /.nav-item -->
             </ul>
 
             <!-- Right Side Of Navbar -->

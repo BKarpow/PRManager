@@ -124,6 +124,12 @@ class User extends Authenticatable
             ->first()->value ?? 0;
     }
 
+    public function configDefaultDaysex()
+    {
+        return $this->configs()->select('value')->where('key', self::CONF_KEY_EXPS_DAYS)
+            ->first()->value ?? 7;
+    }
+
     public function defaultShop()
     {
         $sid = $this->configDefaultShop();

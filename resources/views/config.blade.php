@@ -13,12 +13,7 @@
                         <form action="{{route('options.index')}}" method="POST">
                             @csrf
                         <select-shop></select-shop>
-                        <div class="my-2 p-1">
-                            <button type="submit" class="btn btn-primary">
-                                Зберегти конфіг та закрити
-                            </button> <!-- /.btn -->
-                        </div>
-                        <!-- /.my-2 p-1 -->
+
 
 
                         <div class="my-2 p-1">
@@ -45,6 +40,27 @@
                                 </select>
                             </label>
 
+                        </div>
+                        <!-- /.my-2 p-1 -->
+                        <div class="my-2 p-1">
+                            <label for="daysex">Повідомляти про термін за певний період (дні)</label>
+                            <input type="tel"
+                            name="daysex"
+                            id="daysex"
+                            require
+                            pattern="^\d+$"
+                            placeholder="Вкажіть період в днях"
+                            class="form-control"
+                            value="{{ auth()->user()->configDefaultDaysex() }}"
+                            >
+                        </div>
+                        <!-- /.my-2 p-1 -->
+
+
+                        <div class="my-2 p-1">
+                            <button type="submit" class="btn btn-primary">
+                                Зберегти конфіг та закрити
+                            </button> <!-- /.btn -->
                         </div>
                         <!-- /.my-2 p-1 -->
                         </form>
