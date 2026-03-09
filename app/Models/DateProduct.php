@@ -46,7 +46,7 @@ class DateProduct extends Model
 
     public function is25()
     {
-        return $this->days_remaining <= 7;
+        return $this->days_remaining <= $this->user->configDefaultDaysex();
     }
 
     public function getEndDate() {

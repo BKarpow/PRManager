@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\TelegramChatStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendExpsJob;
 
 class TelegramHandlerController extends Controller
 {
@@ -145,9 +146,7 @@ class TelegramHandlerController extends Controller
         $tu = TelegramHandler::where('chat_id', $this->chatID)->first();
         if ($tu) {
             $text = "Ваші дані на сайті.\n";
-            $text .= "ID: {$tu->user->id}.\n";
             $text .= "Ім'я: {$tu->user->name}.\n";
-            $text .= "Email: {$tu->user->email}.\n";
             $text .= "Телефон: {$tu->user->phone}.\n";
         } else {
             $text = "Помилка отримання даних на сайті.\n";
@@ -160,7 +159,8 @@ class TelegramHandlerController extends Controller
     {
         $tu = TelegramHandler::where('chat_id', $this->chatID)->first();
         if ($tu) {
-            event(new SendExpire($tu->user));
+            SendExpsJob::dispatch($tu->user);
+            // event(new SendExpire($tu->user));
         } else {
             $text = "Помилка отримання даних на сайті.\n";
             $this->sendText($text);

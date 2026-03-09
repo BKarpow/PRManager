@@ -53,6 +53,11 @@
                             class="form-control"
                             value="{{ auth()->user()->configDefaultDaysex() }}"
                             >
+                            @error('daysex')
+                                <div class=" mt-2 alert alert-warning">
+                                    <strong>{{$message}}</strong>
+                                </div>
+                            @enderror
                         </div>
                         <!-- /.my-2 p-1 -->
 

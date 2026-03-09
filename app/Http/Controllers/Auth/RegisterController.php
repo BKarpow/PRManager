@@ -89,6 +89,10 @@ class RegisterController extends Controller
             ['user_id'=>$u->id,'key'=>User::CONF_KEY_GROUP],
              ['value'=>$data['groupid'] ?? 0]
             );
+         ConfigsUser::updateOrCreate(
+            ['user_id'=>$u->id,'key'=>User::CONF_KEY_EXPS_DAYS],
+             ['value'=> 7]
+            );
         return $u;
 
     }

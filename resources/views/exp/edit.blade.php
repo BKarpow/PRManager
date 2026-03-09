@@ -28,6 +28,19 @@
 
                                         </div>
                                         <!-- /.form-group -->
+
+                                        <div class="mt-2 py-1">
+                                            <select
+                                            class="form-select form-select-lg mb-3"
+                                             name="group" id="group">
+                                             <option disabled>Оберіть групу для терміну</option>
+                                              @foreach($groups as $i)
+                                                <option @if($item->group_id == $i->id) selected @endif value="{{$i->id}}">{{$i->name}}</option>
+                                              @endforeach
+
+                                            </select>
+                                        </div>
+                                        <!-- /.mt-2 py-1 -->
                                         <input-date name-input="end" value="{{$item->getEndDate()}}"> </input-date>
                                         @error('end')
                                             <div class="my-2 alert alert-warning">
@@ -47,7 +60,7 @@
                                     </form>
                                 </div>
                                 <!-- /.col-md-6 -->
-                                
+
                             </div>
                             <!-- /.row -->
                         </div>

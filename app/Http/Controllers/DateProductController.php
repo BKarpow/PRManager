@@ -36,21 +36,21 @@ class DateProductController extends Controller
     public function expired()
     {
 
-    return view('exp.expired', [
-        'data' => Auth::user()->beforeExpProductsAll()
-    ]);
+        return view('exp.expired', [
+            'data' => Auth::user()->beforeExpProductsAll()
+        ]);
     }
 
     public function expiredGroup(GroupProduct $group)
     {
 
         $products = DateProduct::query()
-        ->select('*')
-        ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
-        ->orderBy('days_remaining', 'desc')
-        ->where('group_id', $group->id)
-        ->having('days_remaining', '<', 0)
-        ->paginate(100);
+            ->select('*')
+            ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+            ->orderBy('days_remaining', 'desc')
+            ->where('group_id', $group->id)
+            ->having('days_remaining', '<', 0)
+            ->paginate(100);
         return view('exp.expired', [
             'data' => $products,
             'group' => $group
@@ -61,20 +61,20 @@ class DateProductController extends Controller
     {
 
         $products = DateProduct::query()
-        ->select('*')
-        ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
-        ->orderBy('days_remaining', 'asc')
-        ->where('group_id', $group->id)
-        ->having('days_remaining', '>=', 0)
-        ->paginate(100);
+            ->select('*')
+            ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+            ->orderBy('days_remaining', 'asc')
+            ->where('group_id', $group->id)
+            ->having('days_remaining', '>=', 0)
+            ->paginate(100);
 
         $exps = DateProduct::query()
-        ->select('*')
-        ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
-        ->orderBy('days_remaining', 'desc')
-        ->where('group_id', $group->id)
-        ->having('days_remaining', '<', 0)
-        ->get();
+            ->select('*')
+            ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+            ->orderBy('days_remaining', 'desc')
+            ->where('group_id', $group->id)
+            ->having('days_remaining', '<', 0)
+            ->get();
 
         return view('exp.groupExp', [
             'data' => $products,
@@ -97,7 +97,7 @@ class DateProductController extends Controller
         ]);
     }
 
-    private function formatDateToDb(string $d) : string
+    private function formatDateToDb(string $d): string
     {
         return date('Y.m.d', strtotime($d . "00:00:00"));
     }
@@ -129,7 +129,7 @@ class DateProductController extends Controller
         $d->count = $request->count ?? 1;
         $d->save();
 
-        return redirect()->route('date.index')->withStatus('Додано термін: '.$d->product->name);
+        return redirect()->route('date.index')->withStatus('Додано термін: ' . $d->product->name);
     }
 
     /**
@@ -139,16 +139,16 @@ class DateProductController extends Controller
     {
         return view('exp.show', [
             't' => DateProduct::select('*')->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
-            ->whereId($dateProduct->id)->first(),
+                ->whereId($dateProduct->id)->first(),
             'products' => DateProduct::select('*')->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
 
-            ->where([
+                ->where([
 
-                ['product_id', '=', $dateProduct->product_id],
-                ['end', '>=', now()->format('Y-m-d')],
-                ['id', '!=', $dateProduct->id]
-            ])
-            ->get()
+                    ['product_id', '=', $dateProduct->product_id],
+                    ['end', '>=', now()->format('Y-m-d')],
+                    ['id', '!=', $dateProduct->id]
+                ])
+                ->get()
         ]);
     }
 
@@ -158,7 +158,11 @@ class DateProductController extends Controller
     public function edit(DateProduct $dateProduct)
     {
         $this->authorize('update', $dateProduct);
-        return view('exp.edit' , ['item' => $dateProduct]);
+        return view('exp.edit', [
+            'item' => $dateProduct,
+            'groups' => Auth::user()->defaultShop()->groups()->get()
+            ]
+            );
     }
 
     /**
@@ -166,9 +170,10 @@ class DateProductController extends Controller
      */
     public function update(UpdateDateProductRequest $request, DateProduct $dateProduct)
     {
-        // dd($dateProduct);
+
         $this->authorize('update', $dateProduct);
-    $dateProduct->end = $request->end;
+        $dateProduct->end = $request->end;
+        $dateProduct->group_id = $request->group;
         $dateProduct->save();
         return redirect()->route('index')->withStatus('Оновлено термін');
     }
@@ -190,7 +195,7 @@ class DateProductController extends Controller
             'group_id' => 'required|numeric|exists:group_products,id',
             'end' => 'required|date'
         ]);
-        $de = date('Y-m-d', strtotime($request->end. " 00:00:00"));
+        $de = date('Y-m-d', strtotime($request->end . " 00:00:00"));
 
         $d = DateProduct::where([
             ['product_id', '=', $request->product_id],

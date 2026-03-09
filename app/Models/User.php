@@ -143,7 +143,7 @@ class User extends Authenticatable
         return $this->hasMany(DateProduct::class, 'user_id', 'id');
     }
 
-    public function expiredDays(int $days = 7)
+    public function expiredDays()
     {
         return DateProduct::query()
             ->select('*')
@@ -151,7 +151,7 @@ class User extends Authenticatable
             ->orderBy('days_remaining', 'asc')
             ->where('group_id', (int)$this->configDefaultGroup())
             ->having('days_remaining', '>=', 0)
-            ->having('days_remaining', '<=', $days)
+            ->having('days_remaining', '<=', $this->configDefaultDaysex())
             ->get();
     }
 

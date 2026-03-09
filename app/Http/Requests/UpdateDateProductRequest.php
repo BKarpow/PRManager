@@ -22,6 +22,7 @@ class UpdateDateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'group' => 'required|numeric|exists:group_products,id',
             'end' => 'required|date'
         ];
     }

@@ -21,18 +21,7 @@
         </div>
         <!-- /.container -->
         @endif
-        @if (auth()->check())
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <span id="userId">User ID: <span id="userIdValue">{{auth()->user()->id}}</span></span>
-                    </div>
-                    <!-- /.col-md-12 -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        @endif
+        
         <main class="py-4">
             @yield('content')
         </main>

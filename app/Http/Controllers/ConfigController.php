@@ -31,10 +31,13 @@ class ConfigController extends Controller
     {
         $request->validate([
             'shop' => 'required|numeric|exists:shops,id',
+            'daysex' => 'required|numeric|max:15|min:1',
             // 'group' => 'required|numeric|exists:group_products,id'
         ]);
         ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_SHOP], ['value'=>$request->shop]);
         ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_GROUP], ['value'=>$request->group ?? 0]);
+        ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_EXPS_DAYS],
+         ['value'=>$request->daysex ?? 0]);
 
         return redirect()->route('home')->withStatus('Налаштування збережені!');
     }
