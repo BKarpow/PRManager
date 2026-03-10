@@ -181,4 +181,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(TelegramHandler::class, 'user_id', 'id');
     }
+
+    public function isRegisterTelegram(): bool
+    {
+        return  false;
+    }
 }

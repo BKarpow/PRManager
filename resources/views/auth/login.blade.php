@@ -43,7 +43,7 @@
                                 @enderror
                             </div>
                         </div>
-                        @include('recaptcha')
+                        {{-- @include('recaptcha') --}}
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -56,19 +56,21 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
+                        <div class="row mb-2">
                             <div class="col-md-4 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     Увійти
                                 </button>
                             </div>
-                            <div class="col-md-4">
+
+                        </div>
+
+                        <div class="row mb-2">
                                 <a href="/register" class="btn btn-primary">
                                     Створити акаунт
                                 </a> <!-- /.btn btn-primary -->
                             </div>
                             <!-- /.col-md-4 -->
-                        </div>
                     </form>
                 </div>
             </div>

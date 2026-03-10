@@ -11,6 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
+@auth
                 <li class="nav-item">
                     <a href="{{ route('date.index') }}" class="nav-link">
                         Терміни
@@ -19,13 +20,7 @@
                 </li>
                 <!-- /.nav-item -->
 
-                <li class="nav-item">
-                    <a href="{{ route('group.index') }}" class="nav-link">
-                        Відділи
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
+
 
                 <li class="nav-item">
                     <a href="{{ route('product.index') }}" class="nav-link">
@@ -41,12 +36,36 @@
                     <!-- /.nav-link -->
                 </li>
                 <!-- /.nav-item -->
-                <li class="nav-item">
-                    <a href="{{route('tools')}}" class="nav-link">
-                        Інструменти
-                    </a> <!-- /.nav-link -->
-                    </li>
+                @if (auth()->user()->isAdmin())
+
+                    <li class="nav-item">
+                    <a href="{{ route('shop.index') }}" class="nav-link">
+                        Магазини
+                    </a>
+                    <!-- /.nav-link -->
+                </li>
                 <!-- /.nav-item -->
+
+                    <li class="nav-item">
+                    <a href="{{ route('group.index') }}" class="nav-link">
+                        Відділи
+                    </a>
+                    <!-- /.nav-link -->
+                </li>
+                <!-- /.nav-item -->
+
+                    <li class="nav-item">
+                        <a href="{{route('tools')}}" class="nav-link">
+                        Інструменти
+                        </a> <!-- /.nav-link -->
+                    </li>
+                    <!-- /.nav-item -->
+                @endif
+
+
+
+@endauth
+
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -55,13 +74,13 @@
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">Вхід</a>
                         </li>
                     @endif
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">Створити акаунт</a>
                         </li>
                     @endif
                 @else
@@ -78,7 +97,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Вихід
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

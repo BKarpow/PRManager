@@ -22,6 +22,7 @@ class ShopController extends Controller
      */
     public function index()
     {
+        
         return view('shops.index', [
             'data' => Shop::orderBy('created_at', 'asc')->paginate(15),
         ]);

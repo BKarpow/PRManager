@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CronController;
+use App\Http\Controllers\TelegramHandlerController;
 use App\Http\Middleware\EnsurePhoneIsSet;
 
 use App\Http\Controllers\ProfileCompletionController;
@@ -48,6 +49,9 @@ Route::get('/tools', function () {
 // })->middleware('web');
 
 Auth::routes();
+
+Route::get('/telegram-bind', [TelegramHandlerController::class, 'bind'])->name('telegram.bind');
+
 Route::get('/', [App\Http\Controllers\DateProductController::class, 'index'])->name('index');
 Route::get('/home', [App\Http\Controllers\DateProductController::class, 'index'])->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

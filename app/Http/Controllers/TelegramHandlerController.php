@@ -224,4 +224,9 @@ class TelegramHandlerController extends Controller
     {
         dd(Auth::user()->telegram->chat_id);
     }
+
+    public function bind()
+    {
+        return view('telegram');
+    }
 }

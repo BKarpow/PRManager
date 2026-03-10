@@ -58,10 +58,7 @@ export default {
   },
   mounted() {
     this.initCamera();
-    const cz = window.localStorage.getItem(lcKey);
-    if (cz !== null) {
-        this.setZoom(cz);
-    }
+
   },
   beforeUnmount() {
     this.stopCamera();
@@ -79,6 +76,10 @@ export default {
     this.hasTorch = !!caps.torch;
 
     this.$refs.video.srcObject = this.stream;
+    const cz = window.localStorage.getItem(lcKey);
+    if (cz != null) {
+        this.setZoom(cz);
+    }
   } catch (err) {
     this.error = "Камера недоступна";
   }

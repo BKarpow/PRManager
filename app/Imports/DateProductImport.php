@@ -40,14 +40,15 @@ class DateProductImport implements ToModel, WithStartRow
             $p->barcode = $row[5];
             $p->save();
         }
+        $dg = Auth::user()->configDefaultGroup();
         return DateProduct::updateOrCreate([
-            'group_id' => Auth::user()->configDefaultGroup(),
+            'group_id' => $dg,
             'product_id' => (int)$p->id,
             'start' => $this->revDate($row[1]),
             'end' => $this->revDate($row[2])
         ],[
             'user_id' => Auth::id(),
-            'group_id' => Auth::user()->configDefaultGroup(),
+            'group_id' => $dg,
             'product_id' => (int)$p->id,
             'start' => $this->revDate($row[1]),
             'end' => $this->revDate($row[2]),
