@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CronController;
 use App\Http\Controllers\TelegramHandlerController;
 use App\Http\Middleware\EnsurePhoneIsSet;
+use App\Http\Controllers\AutoImageProductController;
+
+Route::get('/1c1873377e624d91bc12f90897c9af43', [AutoImageProductController::class, 'runAuto']);
 
 use App\Http\Controllers\ProfileCompletionController;
 

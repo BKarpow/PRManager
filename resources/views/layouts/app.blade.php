@@ -21,10 +21,11 @@
         </div>
         <!-- /.container -->
         @endif
-        
+
         <main class="py-4">
             @yield('content')
         </main>
+        <fab url="{{ route('date.create') }}"> </fab>
     </div>
 </body>
 </html>

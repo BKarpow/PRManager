@@ -14,8 +14,8 @@ class ProductController extends Controller
 {
     private function getToApi(int $code)
     {
-        $res = Product::whereBarcode($code)->first();
-        if ($res) {
+        $res = Product::where('barcode', $code)->first();
+        if ($res !== null) {
             return [
                 'status_code' => 200,
                 'isDB' => true,
