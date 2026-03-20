@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ImageProduct;
+use App\Models\Product;
 use App\Http\Requests\StoreImageProductRequest;
 use App\Http\Requests\UpdateImageProductRequest;
 use App\Rules\Ean13;
@@ -75,13 +76,10 @@ class ImageProductController extends Controller
                 'barcode' => ['required', new Ean13]
             ]
         );
-        $productsImagePath = storage_path('app/public/products');
-        $fileImage = $productsImagePath . '/product_' . $request->barcode . '.jpg';
+        $product = Product::whereBarcode($request->barcode)->first();
         return response()->json([
-            'existsImage' => file_exists($fileImage),
-            'storage' => $productsImagePath,
-            'filePath' => $fileImage,
-            'urlImage' => '/storage/products/product_' . $request->barcode . '.jpg'
+            'existsImage' => (bool)$product,
+            'urlImage' => (!$product) ? asset('storage/products/no-image.png') : $product->mainImg()
         ]);
 
     }

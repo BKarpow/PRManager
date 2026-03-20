@@ -34,6 +34,31 @@
                         </div>
                         <!-- /.mb-2 p-1 -->
                         <h1>{{ $t->product->name }}</h1>
+                        <div class="container">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-md-4">
+                                    <img src="{{$t->product->mainImg()}}" class="img-fluid" alt="{{ $t->product->name }}">
+                                </div>
+                                <!-- /.col-md-4 -->
+                            </div>
+                            <!-- /.row -->
+                            <div class="row mt-2 justify-content-center align-items-center">
+
+                                @if($pathSvg)
+                                    <div class="d-flex justify-content-center align-items-center" style="height: 300px; border: 1px solid #ccc;">
+                                        <img src="{{$pathSvg}}" class="img-fluid" alt="">
+                                    </div>
+                                    <!-- /.col-md-4 -->
+                                @endif
+                                <div class="mt-1">
+                                    <h3 class="text-center">{{$t->product->barcode}}</h3>
+                                    <!-- /.text-center -->
+                                </div>
+                            </div>
+                            <!-- /.mt-2 -->
+                        </div>
+                        <!-- /.container -->
+
                         <h2>Залишилося днів - {{ $t->days_remaining }}</h2>
                         <div class="container mt-2">
                             <div class="row">

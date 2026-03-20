@@ -69,6 +69,7 @@ export default {
     }
   },
   methods: {
+
     handleInput(event) {
       let value = event.target.value.replace(/[^\d.]/g, '')
 
@@ -200,6 +201,7 @@ export default {
     },
 
     focus() {
+        console.debug('Focused!');
       this.$refs.inputRef.focus()
     },
 

@@ -8,7 +8,8 @@ use App\Http\Controllers\TelegramHandlerController;
 use App\Http\Middleware\EnsurePhoneIsSet;
 use App\Http\Controllers\AutoImageProductController;
 
-Route::get('/1c1873377e624d91bc12f90897c9af43', [AutoImageProductController::class, 'runAuto']);
+
+Route::get('/testi', [AutoImageProductController::class, 'runAuto']);
 
 use App\Http\Controllers\ProfileCompletionController;
 
@@ -29,27 +30,27 @@ Route::get('/tools', function () {
     return view('tools');
 })->name('tools');
 
-// Route::get('/run-migrations', function () {
-//     try {
-//         // Виконуємо команду 'migrate'
-//         Artisan::call('migrate', ['--force' => true]);
+//  Route::get('/run-migrations', function () {
+//      try {
+//          // Виконуємо команду 'migrate'
+//          Artisan::call('migrate', ['--force' => true]);
 
-//         // Отримуємо результат виконання команди
-//         $output = Artisan::output();
+//          // Отримуємо результат виконання команди
+//          $output = Artisan::output();
 
-//         return response()->json([
-//             'status' => 'success',
-//             'message' => 'Міграції виконано успішно.',
-//             'output' => $output
-//         ]);
+//          return response()->json([
+//              'status' => 'success',
+//              'message' => 'Міграції виконано успішно.',
+//              'output' => $output
+//          ]);
 
-//     } catch (\Exception $e) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => 'Помилка під час виконання міграцій: ' . $e->getMessage()
-//         ], 500);
-//     }
-// })->middleware('web');
+//      } catch (\Exception $e) {
+//          return response()->json([
+//              'status' => 'error',
+//              'message' => 'Помилка під час виконання міграцій: ' . $e->getMessage()
+//          ], 500);
+//      }
+//  })->middleware('web');
 
 Auth::routes();
 
@@ -61,11 +62,13 @@ Route::get('/home', [App\Http\Controllers\DateProductController::class, 'index']
 
 Auth::routes();
 
-Route::get('/test', function(){
-    dd(Auth::user()->phone);
-})->middleware(['auth']);
+Route::get('/shop/add', [App\Http\Controllers\ShopController::class, 'create'])
+->name('shop.create');
 
-Route::get('/cron/not', [CronController::class, 'senderExps']);
+Route::post('/shop/add', [App\Http\Controllers\ShopController::class, 'store'])
+->name('shop.create.store');
+
+Route::get('/cron/not', [CronController::class, 'run']);
 
 require __DIR__.'/shop.php';
 require __DIR__.'/groups.php';

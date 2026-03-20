@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -21,8 +22,28 @@ class Product extends Model
         return $this->hasMany(ImageProduct::class, 'product_id', 'id');
     }
 
+    public function getProductImageUrl()
+    {
+        $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        $disk = Storage::disk('public');
+        $directory = 'products/';
+
+        foreach ($extensions as $ext) {
+            $path = "{$directory}product_{$this->barcode}.{$ext}";
+
+            if ($disk->exists($path)) {
+                // Повертаємо повний URL до файлу
+                return $disk->url($path);
+            }
+        }
+
+        // Якщо нічого не знайдено, повертаємо посилання на "заглушку"
+        return asset('storage/products/no-image.png');
+    }
+
     public function mainImg()
     {
-        return '/storage/products/product_' . $this->barcode . '.jpg';
+//        $fn = "products/product_" . $this->barcode . '.jpg';
+        return $this->getProductImageUrl();
     }
 }

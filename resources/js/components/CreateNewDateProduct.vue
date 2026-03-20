@@ -19,8 +19,6 @@
                 </div>
             </div>
 
-
-
             <ImageUploader
                 v-if="isBarcodeValid && !isExistsImage"
                 :product-id="barcode"
@@ -54,6 +52,7 @@
                     v-model="name"
                     maxlength="250"
                     class="form-control big"
+                    ref="nameProduct"
                 />
             </div>
             <!-- /.form-group -->
@@ -70,7 +69,7 @@
 </div> -->
             </div>
             <!-- /.form-group -->
-            <div class="mb-2">
+            <div v-show="isCountDays" class="mb-2">
                 <InputDate
                     name-input="start"
                     label="Виготовлено: "
@@ -105,7 +104,11 @@
                     </label>
                 </div>
                 <div class="green-bg" v-if="!isCountDays">
-                    <InputDate @valid="initEndDate" name-input="end" />
+                    <InputDate
+                        ref="endDate"
+                        @valid="initEndDate"
+                        name-input="end"
+                    />
                 </div>
                 <!-- /.green-bg -->
                 <InputDate
@@ -234,7 +237,7 @@ export default {
             loadGroupList: false,
             groupId: 0,
             dateExists: false,
-            isNewProduct: false
+            isNewProduct: false,
         };
     },
     computed: {
@@ -263,7 +266,7 @@ export default {
         countDaysDateComputed() {
             const d1 = this.addDaysToDate(
                 this.getCurrentDate(),
-                this.countDays
+                this.countDays,
             );
             this.diffDateDays = this.dateDifferenceInDays(this.startDate, d1);
             return d1;
@@ -276,7 +279,7 @@ export default {
         calcDiffDate() {
             return this.dateDifferenceInDays(
                 this.getCurrentDate(),
-                String(this.eDate)
+                String(this.eDate),
             );
         },
         isExpiredDate() {
@@ -316,7 +319,7 @@ export default {
                     }
                 })
                 .catch((err) => {
-                    console.error("Error get exists image");
+                    console.error("Error get exists image", err);
                 });
         },
         validBarcode(b) {
@@ -324,7 +327,23 @@ export default {
             this.getExistsImage();
             console.debug("barcode", b);
             this.isBarcodeValid = true;
+
             this.getApiNameProduct();
+        },
+        handleFocus() {
+            if (this.isNewProduct) {
+                this.$nextTick(() => {
+                    if (this.$refs.nameProduct) {
+                        this.$refs.nameProduct.focus();
+                    }
+                });
+            } else {
+                this.$nextTick(() => {
+                    if (this.$refs.endDate) {
+                        this.$refs.endDate.focus();
+                    }
+                });
+            }
         },
         getApiNameProduct() {
             axios
@@ -332,11 +351,12 @@ export default {
                 .then((resp) => {
                     console.debug("response get name", resp);
                     if (resp.status == 200) {
-                    if (resp.data.status_code == 205) {
-                         //Невідомий товар
-                        this.isNewProduct = true;
-                        return;
-                    }
+                        if (resp.data.status_code == 205) {
+                            //Невідомий товар
+                            this.isNewProduct = true;
+                            this.handleFocus();
+                            return;
+                        }
                         this.isExistsProduct = resp.data.isDB;
                         this.name = resp.data.json_response.name;
                         if (resp.data.isDB) {
@@ -344,9 +364,10 @@ export default {
                             this.comment = resp.data.json_response.comment;
                         }
                         this.hashProductInfo = hexHash(
-                            String(this.name) + String(this.comment)
+                            String(this.name) + String(this.comment),
                         );
                     }
+                    this.handleFocus();
                 });
         },
         invalidBarcode() {
@@ -371,7 +392,7 @@ export default {
             const date = new Date(
                 2000 + Number(year),
                 Number(month) - 1,
-                Number(day)
+                Number(day),
             );
 
             // Додаємо дні

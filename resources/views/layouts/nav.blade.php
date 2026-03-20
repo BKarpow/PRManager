@@ -36,6 +36,15 @@
                     <!-- /.nav-link -->
                 </li>
                 <!-- /.nav-item -->
+
+                    <li class="nav-item">
+                        <a href="{{ route('group.index') }}" class="nav-link">
+                            Відділи
+                        </a>
+                        <!-- /.nav-link -->
+                    </li>
+                    <!-- /.nav-item -->
+
                 @if (auth()->user()->isAdmin())
 
                     <li class="nav-item">
@@ -46,13 +55,7 @@
                 </li>
                 <!-- /.nav-item -->
 
-                    <li class="nav-item">
-                    <a href="{{ route('group.index') }}" class="nav-link">
-                        Відділи
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
+
 
                     <li class="nav-item">
                         <a href="{{route('tools')}}" class="nav-link">

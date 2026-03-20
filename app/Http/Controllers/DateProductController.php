@@ -12,9 +12,11 @@ use App\Models\User;
 use App\Models\ConfigsUser;
 use App\Models\Product;
 use App\Models\GroupProduct;
+use App\Services\BarcodeHandle;
 
 class DateProductController extends Controller
 {
+    use BarcodeHandle;
 
     public function __construct()
     {
@@ -137,6 +139,7 @@ class DateProductController extends Controller
      */
     public function show(DateProduct $dateProduct)
     {
+        // dd($this->saveBarcodeToFile($dateProduct->product->barcode));
         return view('exp.show', [
             't' => DateProduct::select('*')->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
                 ->whereId($dateProduct->id)->first(),
@@ -148,7 +151,8 @@ class DateProductController extends Controller
                     ['end', '>=', now()->format('Y-m-d')],
                     ['id', '!=', $dateProduct->id]
                 ])
-                ->get()
+                ->get(),
+            'pathSvg' => $this->saveBarcodeToFile($dateProduct->product->barcode)
         ]);
     }
 

@@ -113,7 +113,7 @@ class ImageService
 
     public function runAutoDownload()
     {
-        $bc = $this->getMissingBarcodes(8);
+        $bc = $this->getMissingBarcodes(9);
         // dd($bc);
 
         foreach($bc as $b) {
