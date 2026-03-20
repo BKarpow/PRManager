@@ -30,7 +30,7 @@
                         @else
                             <h3>Терміни</h3>
                             <div class="table-responsive">
-                                <table class="table table-dark table-hover">
+                                <table class="table  table-striped">
                                     <thead>
                                         <tr>
                                             <th>Інфо</th>
@@ -39,29 +39,31 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $item)
-                                            <tr >
+                                            <tr @if ($item->is25()) class="table-warning" @endif  >
                                                 <th >
 
                                                     <div class="my-2">
-                                                        <a href="{{route('date.show', ['dateProduct' => $item])}}" class="btn btn-primary">
+                                                        <a href="{{route('date.show', ['dateProduct' => $item])}}"
+                                                            class="btn btn btn-success">
                                                          {{ $item->product->name }} </a> <!-- /.btn btn-primary -->
                                                     </div>
                                                     <div class="mt-1">
-                                                        {{$item->start}} -> {{$item->end}}
+                                                        До: {{$item->end->format('d.m.Y')}}
                                                     </div>
                                                     <!-- /.mt-1 -->
-                                                    <div class="mb-1">
-                                                        <a href="{{ route('product.edit', ['product'=>$item->product_id]) }}" class="btn btn-dark">
-                                                            Змінити продукт
-                                                        </a> <!-- /.btn btn-dark -->
-                                                    </div>
+
                                                     <!-- /.mb-1 -->
-                                                    Штрих-код: {{$item->product->barcode}}
+                                                    <div class="my-1">
+                                                        <img src="{{$item->barcodeSvgUrl()}}" alt="">
+                                                    </div>
+                                                    <!-- /.my-1 -->
+                                                    {{$item->product->barcode}}
+
                                                     <div>Кількість: {{$item->count}}</div>
                                                     <image-modal  image-src="{{$item->product->mainImg()}}" alt-text="{{$item->name}}" ></image-modal>
 
                                                 </th>
-                                                <td @if ($item->is25()) style="background: red; color: white;" @endif class="display-2 text-center">{{$item->days_remaining}}</td>
+                                                <th  class="display-2 text-center">{{$item->days_remaining}}</th>
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\BarcodeHandle;
 
 class DateProduct extends Model
 {
     /** @use HasFactory<\Database\Factories\DateProductFactory> */
     use HasFactory;
+    use BarcodeHandle;
 
     protected $fillable = [
         'group_id',
@@ -51,5 +53,10 @@ class DateProduct extends Model
 
     public function getEndDate() {
         return date('d.m.y', strtotime($this->end));
+    }
+
+    public function barcodeSvgUrl()
+    {
+        return $this->saveBarcodeToFile($this->product->barcode);
     }
 }

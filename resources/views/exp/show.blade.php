@@ -12,7 +12,12 @@
                     <div class="card-header">Перегляд</div>
 
                     <div class="card-body">
-
+<div class="mb-1">
+                                                        <a href="{{ route('product.edit', ['product'=>$t->product_id]) }}"
+                                                            class="btn btn-dark btn-sm">
+                                                            Змінити продукт
+                                                        </a> <!-- /.btn btn-dark -->
+                                                    </div>
                         <div class="my-2 p-1">
                             @can('update', $t)
                                 <a href="{{ route('date.edit', ['dateProduct' => $t]) }}" class="btn btn-success btn-lg">
