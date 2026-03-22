@@ -13,6 +13,7 @@ use App\Models\DateProduct;
 use App\Policies\DateProductPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Pagination\Paginator;
+use App\Observers\DateProductObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
        Gate::policy(Product::class, ProductPolicy::class);
        Gate::policy(GroupProduct::class, GroupProductPolicy::class);
        Gate::policy(DateProduct::class, DateProductPolicy::class);
+       DateProduct::observe(DateProductObserver::class);
        Paginator::useBootstrapFive();
     }
 }

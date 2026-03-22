@@ -43,7 +43,7 @@ class SendExpire
             $i++;
         }
         $ex = null;
-        $this->message .= "Кількість копій: " . (string)$uniqCount . "\n";
+        // $this->message .= "Кількість копій: " . (string)$uniqCount . "\n";
 
     }
 

@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\BarcodeHandle;
+use Illuminate\Support\Facades\Cache;
 
 class DateProduct extends Model
 {
     /** @use HasFactory<\Database\Factories\DateProductFactory> */
     use HasFactory;
     use BarcodeHandle;
+
+    const KEY_CACHE = "dateProduct_exps";
+    const KEY_CACHE2 = "dateProduct_exps2";
+    const KEY_CACHE3 = "dateProduct_exps3";
 
     protected $fillable = [
         'group_id',

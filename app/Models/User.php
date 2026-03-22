@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -65,10 +66,10 @@ class User extends Authenticatable
     {
         return Attribute::make(
             // Геттер: форматуємо номер при читанні з бази для відображення
-            get: fn ($value) => $this->formatPhoneForDisplay($value),
+            get: fn($value) => $this->formatPhoneForDisplay($value),
 
             // Сеттер: очищаємо номер перед записом у базу
-            set: fn ($value) => preg_replace('/\D/', '', $value),
+            set: fn($value) => preg_replace('/\D/', '', $value),
         );
     }
 
@@ -145,36 +146,57 @@ class User extends Authenticatable
 
     public function expiredDays()
     {
-        return DateProduct::query()
-            ->select('*')
-            ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
-            ->orderBy('days_remaining', 'asc')
-            ->where('group_id', (int)$this->configDefaultGroup())
-            ->having('days_remaining', '>=', 0)
-            ->having('days_remaining', '<=', $this->configDefaultDaysex())
-            ->get();
+        return Cache::remember(DateProduct::KEY_CACHE.$this->id, now()->addDay(), function () {
+            return DateProduct::query()
+                ->select('*')
+                ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+                ->orderBy('days_remaining', 'asc')
+                ->where('group_id', (int)$this->configDefaultGroup())
+                ->having('days_remaining', '>=', 0)
+                ->having('days_remaining', '<=', $this->configDefaultDaysex())
+                ->get();
+        });
+        // return DateProduct::query()
+        //     ->select('*')
+        //     ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+        //     ->orderBy('days_remaining', 'asc')
+        //     ->where('group_id', (int)$this->configDefaultGroup())
+        //     ->having('days_remaining', '>=', 0)
+        //     ->having('days_remaining', '<=', $this->configDefaultDaysex())
+        //     ->get();
     }
 
     public function expProductsAll()
     {
-        return DateProduct::query()
+        return Cache::remember(DateProduct::KEY_CACHE2.$this->id, now()->addDay(), function () {
+            return DateProduct::query()
             ->select('*')
             ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
             ->orderBy('days_remaining', 'asc')
             ->where('group_id', (int)$this->configDefaultGroup())
             ->having('days_remaining', '>=', 0)
             ->paginate(50);
+        });
+        // return DateProduct::query()
+        //     ->select('*')
+        //     ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
+        //     ->orderBy('days_remaining', 'asc')
+        //     ->where('group_id', (int)$this->configDefaultGroup())
+        //     ->having('days_remaining', '>=', 0)
+        //     ->paginate(50);
     }
 
     public function beforeExpProductsAll()
     {
-        return DateProduct::query()
+        return Cache::remember(DateProduct::KEY_CACHE3.$this->id, now()->addDay(), function () {
+            return DateProduct::query()
             ->select('*')
             ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
             ->orderBy('days_remaining', 'asc')
             ->where('group_id', (int)$this->configDefaultGroup())
             ->having('days_remaining', '<', 0)
             ->paginate(50);
+        });
     }
 
     public function telegram()
