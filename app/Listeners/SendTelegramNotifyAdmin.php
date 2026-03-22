@@ -6,10 +6,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\NewDateProduct;
 use Telegram;
+use App\Jobs\SendTelegramMessageJob;
 
 // implements ShouldQueue
 
-class SendTelegramNotifyAdmin
+class SendTelegramNotifyAdmin implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -24,6 +25,7 @@ class SendTelegramNotifyAdmin
      */
     public function handle(NewDateProduct $event): void
     {
+        // SendTelegramMessageJob::dispatch("261711381", $event->message);
         $tg = new Telegram(env('TELEGRAM_BOT_TOKEN'));
         $res = $tg->sendMessage([
             'chat_id' => "261711381",

@@ -7,6 +7,17 @@ use App\Http\Controllers\CronController;
 use App\Http\Controllers\TelegramHandlerController;
 use App\Http\Middleware\EnsurePhoneIsSet;
 use App\Http\Controllers\AutoImageProductController;
+use Illuminate\Support\Facades\Http;
+
+
+// Route::get('/test-ssl', function () {
+//     try {
+//         $response = Http::get('https://google.com');
+//         return "Статус запиту: " . $response->status();
+//     } catch (\Exception $e) {
+//         return "Помилка SSL: " . $e->getMessage();
+//     }
+// });
 
 
 Route::get('/testi', [AutoImageProductController::class, 'runAuto']);
@@ -78,3 +89,4 @@ require __DIR__.'/config.php';
 require __DIR__.'/import.php';
 require __DIR__.'/telegram.php';
 require __DIR__.'/api.php';
+require __DIR__.'/admin.php';

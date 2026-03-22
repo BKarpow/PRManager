@@ -46,7 +46,18 @@
                     <!-- /.nav-item -->
 
                 @if (auth()->user()->isAdmin())
-
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Адмін функції
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="{{route('admin.user.index')}}" class="dropdown-item">
+                                Користувачі
+                            </a> <!-- /.dropdown-item -->
+                        </div>
+                        <!-- /.dropdown-menu dropdown-menu-end -->
+                    </li>
                     <li class="nav-item">
                     <a href="{{ route('shop.index') }}" class="nav-link">
                         Магазини

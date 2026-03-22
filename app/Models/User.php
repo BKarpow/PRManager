@@ -175,7 +175,7 @@ class User extends Authenticatable
             ->orderBy('days_remaining', 'asc')
             ->where('group_id', (int)$this->configDefaultGroup())
             ->having('days_remaining', '>=', 0)
-            ->paginate(50);
+            ->paginate(100);
         });
         // return DateProduct::query()
         //     ->select('*')
@@ -195,7 +195,7 @@ class User extends Authenticatable
             ->orderBy('days_remaining', 'asc')
             ->where('group_id', (int)$this->configDefaultGroup())
             ->having('days_remaining', '<', 0)
-            ->paginate(50);
+            ->paginate(100);
         });
     }
 

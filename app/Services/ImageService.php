@@ -27,7 +27,7 @@ class ImageService
 //     'q' => $s,
 //     'count' => 2
 // ]);
-        $response = Http::withoutVerifying()->get('https://serpapi.com/search.json', [
+        $response = Http::get('https://serpapi.com/search.json', [
             'engine'  => 'google_images', // Вказуємо, що шукаємо саме картинки
             'q'       => $s,         // Ваш штрихкод або назва
             'google_domain' => 'google.com.ua',
@@ -59,7 +59,7 @@ class ImageService
     {
         try {
             // 1. Виконуємо запит до URL
-            $response = Http::withoutVerifying()->get($url);
+            $response = Http::get($url);
 
             if (!$response->successful()) {
                 Log::error("Не вдалося завантажити файл. Статус: " . $response->status());
