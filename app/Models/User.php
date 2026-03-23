@@ -208,4 +208,9 @@ class User extends Authenticatable
     {
         return  false;
     }
+
+    public function meta()
+    {
+        return $this->hasOne(UserMetaData::class, 'user_id', 'id');
+    }
 }

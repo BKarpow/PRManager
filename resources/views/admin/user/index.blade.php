@@ -38,6 +38,40 @@
                                                         {{$item->phone}}
                                                     </div>
                                                     <!-- /.mt-1 -->
+                                                    <div class="mt-1">
+                                                        <form action="{{route('admin.user.clearCache')}}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="user" value="{{$item->id}}">
+                                                            <button class="btn btn-warning">
+                                                                Очистити кеш
+                                                            </button> <!-- /.btn btn-warning -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.mt-1 -->
+                                                    <div class="mt-1">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">
+                                                                Візитів: {{ $item->meta->visit ?? 0 }}
+                                                            </li>
+                                                            <!-- /.list-group-item -->
+                                                            <li class="list-group-item">
+                                                                Остання IP: {{ $item->meta->last_ip ?? '' }}
+                                                            </li>
+                                                            <!-- /.list-group-item -->
+                                                            <li class="list-group-item">
+                                                                Остання UA: {{ $item->meta->last_user_agent ?? '' }}
+                                                            </li>
+                                                            <!-- /.list-group-item -->
+                                                            @if (isset($item->meta->created_at))
+                                                                <li class="list-group-item">
+                                                                    {{$item->meta->created_at->format('d.m.Y H:i')}}
+                                                                </li>
+                                                                <!-- /.list-group-item -->
+                                                            @endif
+                                                        </ul>
+                                                        <!-- /.list-group -->
+                                                    </div>
+                                                    <!-- /.mt-1 -->
 
                                                 </th>
                                                 <td >{{$item->created_at->format('d.m.Y')}}</td>

@@ -52,6 +52,9 @@
                             Адмін функції
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <a href="{{route('admin.index')}}" class="dropdown-item">
+                                Панедь
+                            </a>
                             <a href="{{route('admin.user.index')}}" class="dropdown-item">
                                 Користувачі
                             </a> <!-- /.dropdown-item -->
