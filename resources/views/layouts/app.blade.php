@@ -6,6 +6,7 @@
 </head>
 <body>
     <div id="app">
+        <pwa></pwa>
         @include('layouts.nav')
         @if (session('status'))
         <div class="container m-1">

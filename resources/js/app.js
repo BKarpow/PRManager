@@ -10,6 +10,20 @@ import 'cropperjs/dist/cropper.min.js';
 import VCalendar from 'v-calendar';
 import 'v-calendar/dist/style.css';
 
+import { registerSW } from 'virtual:pwa-register';
+
+// Автоматичне оновлення Service Worker при зміні коду
+const updateSW = registerSW({
+  onNeedRefresh() {
+      if (confirm('Доступна нова версія. Оновити?')) {
+          updateSW(true);
+      }
+  },
+  onOfflineReady() {
+      console.log('Застосунок готовий до роботи офлайн!');
+  },
+});
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -32,6 +46,7 @@ import DeleteButton from './components/DeleteButton.vue';
 import DigitalLoupe from './components/DigitalLoupe.vue';
 import ShowMagnify from './components/ShowMagnify.vue';
 import FloatingActionButton from './components/FloatingActionButton.vue';
+import InstallPWA from './components/InstallPWA.vue';
 app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
@@ -45,6 +60,7 @@ app.component('phone-input', PhoneInput );
 app.component('zoom', DigitalLoupe );
 app.component('magnify', ShowMagnify );
 app.component('fab', FloatingActionButton );
+app.component('pwa', InstallPWA  );
 
 /**
  * The following block of code may be used to automatically register your

@@ -68,6 +68,10 @@
                                                                 </li>
                                                                 <!-- /.list-group-item -->
                                                             @endif
+                                                            <li class="list-group-item">
+                                                                Термінів: {{ $item->exps()->count() }}
+                                                            </li>
+                                                            <!-- /.list-group-item -->
                                                         </ul>
                                                         <!-- /.list-group -->
                                                     </div>
