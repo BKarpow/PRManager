@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\DateProduct;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewDateProductMail;
 
 
 class AdminController extends Controller
@@ -37,5 +39,23 @@ class AdminController extends Controller
         return redirect()->back()->withStatus('Помилка під час виконання міграцій: ' . $e->getMessage());
 
      }
+    }
+
+    public function clearConfigCache() {
+        //php artisan config:clear
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        return redirect()->back()->withStatus("Кеш конфігурації очищено");
+    }
+
+    public function sendTestMail()
+    {
+        Mail::to(env('MAIL_ADMIN'))->send(new NewDateProductMail("Перевірка 1"));
+        return redirect()->back()->withStatus("Лист в черзі");
+    }
+
+    public function optionsPage()
+    {
+        return view('admin.options');
     }
 }

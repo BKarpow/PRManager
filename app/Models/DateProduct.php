@@ -34,6 +34,18 @@ class DateProduct extends Model
         // або 'datetime', якщо там є час
     ];
 
+    private bool $isImport = false;
+
+    public function setImportMode():void
+    {
+        $this->isImport = true;
+    }
+
+    public function isImportMode(): bool
+    {
+       return $this->isImport;
+    }
+
     public function product()
     {
         return $this->hasOne(Product::class, 'id', 'product_id');

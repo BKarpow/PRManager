@@ -26,10 +26,10 @@ class SendTelegramNotifyAdmin implements ShouldQueue
     public function handle(NewDateProduct $event): void
     {
         // SendTelegramMessageJob::dispatch("261711381", $event->message);
-        $tg = new Telegram(env('TELEGRAM_BOT_TOKEN'));
-        $res = $tg->sendMessage([
-            'chat_id' => "261711381",
-            'text' => $event->message
-        ]);
+        // $tg = new Telegram(env('TELEGRAM_BOT_TOKEN'));
+        // $res = $tg->sendMessage([
+        //     'chat_id' => "261711381",
+        //     'text' => $event->message
+        // ]);
     }
 }

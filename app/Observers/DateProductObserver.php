@@ -6,6 +6,7 @@ use App\Models\DateProduct;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use App\Events\NewDateProduct;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class DateProductObserver
 {
@@ -15,9 +16,11 @@ class DateProductObserver
      */
     private function clearCache(): void
     {
-        Cache::forget(DateProduct::KEY_CACHE.Auth::id());
-        Cache::forget(DateProduct::KEY_CACHE2.Auth::id());
-        Cache::forget(DateProduct::KEY_CACHE3.Auth::id());
+        $gid = Auth::user()->configDefaultGroup();
+        Cache::forget(DateProduct::KEY_CACHE.$gid);
+        Cache::forget(DateProduct::KEY_CACHE2.$gid);
+        Cache::forget(DateProduct::KEY_CACHE3.$gid);
+        $gid = null;
         // Якщо використовуєш теги (для Redis):
         // Cache::tags(['products'])->flush();
     }
@@ -27,8 +30,11 @@ class DateProductObserver
      */
     public function created(DateProduct $dateProduct): void
     {
-        $this->clearCache();
-        event(new NewDateProduct($dateProduct));
+        if (!$dateProduct->isImportMode()) {
+            $this->clearCache();
+            event(new NewDateProduct($dateProduct));
+        }
+
     }
 
     /**

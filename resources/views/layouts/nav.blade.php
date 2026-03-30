@@ -58,6 +58,9 @@
                             <a href="{{route('admin.user.index')}}" class="dropdown-item">
                                 Користувачі
                             </a> <!-- /.dropdown-item -->
+                            <a href="{{route('admin.options')}}" class="dropdown-item">
+                                Налаштування
+                            </a> <!-- /.dropdown-item -->
                         </div>
                         <!-- /.dropdown-menu dropdown-menu-end -->
                     </li>

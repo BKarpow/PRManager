@@ -64,7 +64,7 @@
                                                             <!-- /.list-group-item -->
                                                             @if (isset($item->meta->created_at))
                                                                 <li class="list-group-item">
-                                                                    {{$item->meta->created_at->format('d.m.Y H:i')}}
+                                                                    {{$item->meta->updated_at->format('d.m.Y H:i')}}
                                                                 </li>
                                                                 <!-- /.list-group-item -->
                                                             @endif

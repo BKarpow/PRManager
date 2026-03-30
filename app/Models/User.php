@@ -141,12 +141,12 @@ class User extends Authenticatable
 
     public function exps()
     {
-        return $this->hasMany(DateProduct::class, 'user_id', 'id');
+        return $this->hasMany(DateProduct::class, 'user_id', 'id')->whereRaw('`end` >= CURDATE()');
     }
 
     public function expiredDays()
     {
-        return Cache::remember(DateProduct::KEY_CACHE.$this->id, now()->addHours(12), function () {
+        return Cache::remember(DateProduct::KEY_CACHE.$this->configDefaultGroup(), now()->addHours(8), function () {
             return DateProduct::query()
                 ->select('*')
                 ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')
@@ -168,7 +168,7 @@ class User extends Authenticatable
 
     public function expProductsAll()
     {
-        return Cache::remember(DateProduct::KEY_CACHE2.$this->id, now()->addHours(12), function () {
+        return Cache::remember(DateProduct::KEY_CACHE2.$this->configDefaultGroup(), now()->addHours(3), function () {
 
         return DateProduct::query()
             ->select('*')
@@ -190,7 +190,7 @@ class User extends Authenticatable
 
     public function beforeExpProductsAll()
     {
-        return Cache::remember(DateProduct::KEY_CACHE3.$this->id, now()->addHours(12), function () {
+        return Cache::remember(DateProduct::KEY_CACHE3.$this->configDefaultGroup(), now()->addHours(24), function () {
             return DateProduct::query()
             ->select('*')
             ->selectRaw('DATEDIFF(end, CURDATE()) as days_remaining')

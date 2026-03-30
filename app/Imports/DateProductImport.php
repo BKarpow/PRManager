@@ -33,15 +33,18 @@ class DateProductImport implements ToModel, WithStartRow
     {
         // dd($row);
         if (empty($row[5])) return null;
-        $p = Product::whereBarcode($row[5])->first();
+
+
+        return DateProduct::withoutEvents(function () {
+            $p = Product::whereBarcode($row[5])->first();
         if (!$p) {
             $p = new Product();
             $p->name = $row[0];
             $p->barcode = $row[5];
             $p->save();
         }
-        $dg = Auth::user()->configDefaultGroup();
-        return DateProduct::updateOrCreate([
+            $dg = Auth::user()->configDefaultGroup();
+            return DateProduct::updateOrCreate([
             'group_id' => $dg,
             'product_id' => (int)$p->id,
             'start' => $this->revDate($row[1]),
@@ -54,5 +57,7 @@ class DateProductImport implements ToModel, WithStartRow
             'end' => $this->revDate($row[2]),
             'count' => (int)$row[3],
         ]);
+        });
+
     }
 }

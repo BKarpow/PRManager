@@ -21,11 +21,12 @@ class MetaUserDataMiddleware
             $r = UserMetaData::whereUserId(Auth::id())->first();
             if (!$r) {
                 $r = new UserMetaData();
+                $r->user_id = Auth::id();
             }
             if ($r->block) {
                 abort(403);
             }
-            $r->user_id = Auth::id();
+
             $r->visit += 1;
             $r->last_ip = $request->ip();
             $r->last_user_agent = $request->userAgent();
