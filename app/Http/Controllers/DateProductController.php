@@ -215,4 +215,22 @@ class DateProductController extends Controller
             'updatedAt' => ($exists) ? $d->updated_at->format('d.m.Y') : 0
         ]);
     }
+
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    $expiries = DateProduct::with('product')
+        ->when($search, function ($query, $search) {
+            $query->whereHas('product', function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%");
+            });
+        })
+        ->where('group_id', '=', Auth::user()->configDefaultGroup())
+        ->whereRaw('`end` >= CURDATE()')
+        ->orderBy('end', 'asc')
+        ->paginate(10); // Повертає об'єкт LengthAwarePaginator
+
+    return response()->json($expiries);
+}
 }

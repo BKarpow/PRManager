@@ -7,21 +7,22 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Штрихкоди та продукти</div>
+                    <div class="card-header">Терміни</div>
 
                     <div class="card-body">
                         <div class="my-2 p-1">
-                            <a href="{{route('date.create')}}" class="btn btn-dark btn-lg">
+                            <a href="{{route('date.create')}}" class="btn btn-success btn-lg">
                             Додати новий термін
                         </a>
                         </div>
                         <!-- /.my-2 p-1 -->
-                        <div class="mb-2 p-1">
-                            <a href="{{route('date.expired')}}" class="btn btn-warning btn-lg">
-                                Протерміновані продукти ({{$exps->count()}})
-                            </a>
-                            <!-- /.btn btn-success --></div>
-                        <!-- /.mb-2 p-1 -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <search-date></search-date>
+                            </div>
+                            <!-- /.col-md-10 -->
+                        </div>
+                        <!-- /.row -->
                         @if ($data->count() == 0)
                             <div class="alert alert-info">
                                 <strong>Ще немає в базі термінів, створіть новий!</strong>

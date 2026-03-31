@@ -4,8 +4,8 @@
 @include('layouts.head')
 <title> @yield('title') {{ config('app.name', 'Laravel') }}</title>
 </head>
-<body>
-    <div id="app">
+<body >
+    <div id="app" >
         <pwa></pwa>
         @include('layouts.nav')
         @if (session('status'))

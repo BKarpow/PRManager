@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:var(--main-bg-color);">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img src="/icons/favicon.png" class=" img-fluid" /> {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -111,6 +111,10 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a href="{{route('date.expired')}}" class="dropdown-item">
+                                Протермін
+                            </a>
+                            <!-- /.btn btn-success -->
                             <a href="{{ route('options.index') }}" class="dropdown-item">
                                 Налаштування
                             </a> <!-- /.dropdown-item -->

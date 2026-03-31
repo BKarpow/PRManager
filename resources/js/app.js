@@ -47,6 +47,7 @@ import DigitalLoupe from './components/DigitalLoupe.vue';
 import ShowMagnify from './components/ShowMagnify.vue';
 import FloatingActionButton from './components/FloatingActionButton.vue';
 import InstallPWA from './components/InstallPWA.vue';
+import SearchPaginate from './components/SearchPaginate.vue';
 app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
@@ -61,6 +62,7 @@ app.component('zoom', DigitalLoupe );
 app.component('magnify', ShowMagnify );
 app.component('fab', FloatingActionButton );
 app.component('pwa', InstallPWA  );
+app.component('search-date', SearchPaginate );
 
 /**
  * The following block of code may be used to automatically register your

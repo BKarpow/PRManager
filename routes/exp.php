@@ -41,6 +41,9 @@ Route::post($prefixRoute.'/info/exists', [DateProductController::class, 'dateExi
 Route::get($prefixRoute.'/del/{dateProduct}', [DateProductController::class, 'destroy'])
 ->name('date.delete');
 
+Route::get($prefixRoute.'/search/', [DateProductController::class, 'search'])
+->name('date.search');
+
 $prefixRoute = null;
 $nameAlias = null;
 

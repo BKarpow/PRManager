@@ -26,6 +26,13 @@
                             <!-- /.col-md-10 -->
                         </div>
                         <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-10">
+                                <search-date></search-date>
+                            </div>
+                            <!-- /.col-md-10 -->
+                        </div>
+                        <!-- /.row -->
                     </div>
                     <!-- /.container -->
                 </div>
