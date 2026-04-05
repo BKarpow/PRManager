@@ -22,7 +22,7 @@ class Product extends Model
         return $this->hasMany(ImageProduct::class, 'product_id', 'id');
     }
 
-    public function getProductImageUrl()
+    public function getProductImageUrl(bool $pathAbsolute = false)
     {
         $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
         $disk = Storage::disk('public');
@@ -33,17 +33,27 @@ class Product extends Model
 
             if ($disk->exists($path)) {
                 // Повертаємо повний URL до файлу
-                return $disk->url($path);
+                return ($pathAbsolute) ? $path : $disk->url($path);
             }
         }
 
         // Якщо нічого не знайдено, повертаємо посилання на "заглушку"
-        return asset('storage/products/no-image.png');
+        return ($pathAbsolute) ? false : asset('storage/products/no-image.png');
     }
 
     public function mainImg()
     {
 //        $fn = "products/product_" . $this->barcode . '.jpg';
         return $this->getProductImageUrl();
+    }
+
+    public function deleteMainImage(): bool
+    {
+        $mainFile = $this->getProductImageUrl(true);
+        if ($mainFile) {
+            Storage::disk('public')->delete($mainFile);
+            return true;
+        }
+        return false;
     }
 }

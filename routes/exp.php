@@ -44,6 +44,9 @@ Route::get($prefixRoute.'/del/{dateProduct}', [DateProductController::class, 'de
 Route::get($prefixRoute.'/search/', [DateProductController::class, 'search'])
 ->name('date.search');
 
+Route::get($prefixRoute.'/delete-image/{dateProduct}', [DateProductController::class, 'delImg'])
+->name('date.delImg');
+
 $prefixRoute = null;
 $nameAlias = null;
 

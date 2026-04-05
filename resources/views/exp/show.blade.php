@@ -47,6 +47,15 @@
                                 <!-- /.col-md-4 -->
                             </div>
                             <!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="{{route('date.delImg', ['dateProduct'=>$t ])}}" class="btn btn-danger">
+                                        Це не зображення цього продукту!
+                                    </a> <!-- /.btn btn-primary -->
+                                </div>
+                                <!-- /.col-md-4 -->
+                            </div>
+                            <!-- /.row -->
                             <div class="row mt-2 justify-content-center align-items-center">
 
                                 @if($pathSvg)

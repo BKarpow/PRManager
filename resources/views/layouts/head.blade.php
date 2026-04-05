@@ -1,10 +1,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- <link rel="manifest" href="/manifest.json"> --}}
-    <meta name="theme-color" content="#0d6efd">
-    <link rel="icon" type="image/png" href="/icons/i256.png">
-    <link rel="apple-touch-icon" href="/icons/i256.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#86a790">
+    <link rel="icon" type="image/png" href="/build/icons/i256.png">
+    <link rel="apple-touch-icon" href="/build/icons/i256.png">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

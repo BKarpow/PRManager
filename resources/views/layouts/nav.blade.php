@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:var(--main-bg-color);">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="/icons/favicon.png" class=" img-fluid" /> {{ config('app.name', 'Laravel') }}
+            <img src="/build/icons/favicon.png" class=" img-fluid" /> {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -11,80 +11,64 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-@auth
-                <li class="nav-item">
-                    <a href="{{ route('date.index') }}" class="nav-link">
-                        Терміни
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
-
-
-
-                <li class="nav-item">
-                    <a href="{{ route('product.index') }}" class="nav-link">
-                        Продукти
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
-                <li class="nav-item">
-                    <a href="{{route('import.csv')}}" class="nav-link">
-                        Імпортувати терміни
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
-
-                    <li class="nav-item">
-                        <a href="{{ route('group.index') }}" class="nav-link">
-                            Відділи
-                        </a>
-                        <!-- /.nav-link -->
-                    </li>
-                    <!-- /.nav-item -->
-
-                @if (auth()->user()->isAdmin())
+                @auth
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button"
+
+                        <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Адмін функції
+                            Терміни
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="{{route('admin.index')}}" class="dropdown-item">
-                                Панедь
+                            <a href="{{ route('date.index') }}" class=" dropdown-item">
+                                Терміни
                             </a>
-                            <a href="{{route('admin.user.index')}}" class="dropdown-item">
-                                Користувачі
-                            </a> <!-- /.dropdown-item -->
-                            <a href="{{route('admin.options')}}" class="dropdown-item">
-                                Налаштування
-                            </a> <!-- /.dropdown-item -->
+
+                            <a href="{{ route('group.index') }}" class="dropdown-item">
+                                Відділи
+                            </a>
+                            <a href="{{ route('product.index') }}" class="dropdown-item">
+                                Продукти
+                            </a>
+                            <a href="{{ route('import.csv') }}" class="dropdown-item">
+                                Імпортувати терміни
+                            </a>
                         </div>
-                        <!-- /.dropdown-menu dropdown-menu-end -->
-                    </li>
-                    <li class="nav-item">
-                    <a href="{{ route('shop.index') }}" class="nav-link">
-                        Магазини
-                    </a>
-                    <!-- /.nav-link -->
-                </li>
-                <!-- /.nav-item -->
-
-
-
-                    <li class="nav-item">
-                        <a href="{{route('tools')}}" class="nav-link">
-                        Інструменти
-                        </a> <!-- /.nav-link -->
                     </li>
                     <!-- /.nav-item -->
-                @endif
+                    @if (auth()->user()->isAdmin())
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Адмін функції
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="{{ route('admin.index') }}" class="dropdown-item">
+                                    Панедь
+                                </a>
+                                <a href="{{ route('admin.user.index') }}" class="dropdown-item">
+                                    Користувачі
+                                </a> <!-- /.dropdown-item -->
+                                <a href="{{ route('admin.options') }}" class="dropdown-item">
+                                    Налаштування
+                                </a> <!-- /.dropdown-item -->
+                                <a href="{{ route('wproduct.import') }}" class="dropdown-item">
+                                    Імпорт Вагових товарів
+                                </a> <!-- /.dropdown-item -->
+                                <a href="{{ route('shop.index') }}" class="dropdown-item">
+                                Магазини
+                            </a>
+                            <a href="{{ route('tools') }}" class="dropdown-item">
+                                Інструменти
+                            </a>
+                            </div>
+                            <!-- /.dropdown-menu dropdown-menu-end -->
+                        </li>
+                    @endif
 
 
 
-@endauth
+                @endauth
 
             </ul>
 
@@ -111,7 +95,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a href="{{route('date.expired')}}" class="dropdown-item">
+                            <a href="{{ route('date.expired') }}" class="dropdown-item">
                                 Протермін
                             </a>
                             <!-- /.btn btn-success -->

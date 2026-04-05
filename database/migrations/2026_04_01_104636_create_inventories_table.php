@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wight_products', function (Blueprint $table) {
+        Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('plu', 10)->nullable();
-            $table->string('barcode', 20)->nullable();
-            $table->boolean('active')->default(true);
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wight_products');
+        Schema::dropIfExists('inventories');
     }
 };

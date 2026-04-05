@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WightProduct;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreWightProductRequest;
 use App\Http\Requests\UpdateWightProductRequest;
 
@@ -13,7 +14,44 @@ class WightProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('wproduct.index', [
+            'data' => WightProduct::orderBy('name', 'asc')->paginate(50)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function import()
+    {
+        return view('wproduct.import');
+    }
+
+    public function importStore(Request $request)
+    {
+        $request->validate([
+            'js' => 'required|json',
+        ]);
+
+        $data = json_decode($request->js, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Некоректний формат JSON: ' . json_last_error_msg()
+            ], 422);
+        }
+        $i = 0;
+        foreach($data as $item) {
+            WightProduct::updateOrCreate([
+                'name' => $item['name']
+            ],[
+                'name' => $item['name'],
+                'barcode' => $item['barcode'],
+                'plu'  ?? null=> $item['plu'] ?? null,
+            ]);
+            $i++;
+        }
+        return redirect()->route('admin.index')->withStatus('Імпортовано '.$i.' вагових продуктів.');
     }
 
     /**

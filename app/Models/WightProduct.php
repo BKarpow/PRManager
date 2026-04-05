@@ -9,4 +9,10 @@ class WightProduct extends Model
 {
     /** @use HasFactory<\Database\Factories\WightProductFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'barcode',
+        'plu'
+    ];
 }

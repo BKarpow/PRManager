@@ -192,6 +192,13 @@ class DateProductController extends Controller
         return redirect()->route('home')->withStatus("Термін видалено.");
     }
 
+    public function delImg(DateProduct $dateProduct)
+    {
+        $this->authorize('delete', $dateProduct);
+        $res = $dateProduct->product->deleteMainImage();
+        return redirect()->back()->withStatus("Видалено збраження товару!");
+    }
+
     public function dateExists(Request $request)
     {
         $request->validate([
