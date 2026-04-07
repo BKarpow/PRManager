@@ -6,6 +6,7 @@ use App\Models\WightProduct;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreWightProductRequest;
 use App\Http\Requests\UpdateWightProductRequest;
+use App\Http\Resources\WproductResource;
 
 class WightProductController extends Controller
 {
@@ -54,12 +55,19 @@ class WightProductController extends Controller
         return redirect()->route('admin.index')->withStatus('Імпортовано '.$i.' вагових продуктів.');
     }
 
+    public function getList()
+    {
+        return WproductResource::collection(
+            WightProduct::orderBy('name', 'asc')->get()
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -100,5 +108,12 @@ class WightProductController extends Controller
     public function destroy(WightProduct $wightProduct)
     {
         //
+    }
+
+    public function getResourceAllWproducts()
+    {
+        return WproductResource::collection(
+            WightProduct::orderBy('name', 'asc')->get()
+        );
     }
 }

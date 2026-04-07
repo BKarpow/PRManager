@@ -36,6 +36,22 @@
                         </div>
                     </li>
                     <!-- /.nav-item -->
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown10" class="nav-link dropdown-toggle" href="#"
+                        role="button"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false" v-pre>
+                                Інвентаоизації
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="{{route('inventory.create')}}" class="dropdown-item">
+                                    Створити
+                                </a> <!-- /.dropdown-item -->
+                            </div>
+                            <!-- /.dropdown-menu dropdown-menu-end -->
+                    </li>
+                    <!-- /.nav-item dropdown -->
                     @if (auth()->user()->isAdmin())
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button"

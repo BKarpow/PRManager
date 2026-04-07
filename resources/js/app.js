@@ -9,6 +9,10 @@ import { createApp } from 'vue';
 import 'cropperjs/dist/cropper.min.js';
 import VCalendar from 'v-calendar';
 import 'v-calendar/dist/style.css';
+import vSelect from "vue-select";
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+
+
 
 import { registerSW } from 'virtual:pwa-register';
 
@@ -33,6 +37,9 @@ const updateSW = registerSW({
 
 const app = createApp({});
 
+app.use(VCalendar, {});
+app.use(ZiggyVue, {});
+
 import ExampleComponent from './components/ExampleComponent.vue';
 import ImageUploader from './components/ImageUploader.vue';
 import InputBarcode from './components/InputBarcode.vue';
@@ -48,6 +55,7 @@ import ShowMagnify from './components/ShowMagnify.vue';
 import FloatingActionButton from './components/FloatingActionButton.vue';
 import InstallPWA from './components/InstallPWA.vue';
 import SearchPaginate from './components/SearchPaginate.vue';
+import CreateInventory from './components/CreateInventory.vue';
 app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
@@ -63,6 +71,8 @@ app.component('magnify', ShowMagnify );
 app.component('fab', FloatingActionButton );
 app.component('pwa', InstallPWA  );
 app.component('search-date', SearchPaginate );
+app.component("v-select", vSelect);
+app.component("create-inventory", CreateInventory);
 
 /**
  * The following block of code may be used to automatically register your
@@ -81,7 +91,7 @@ app.component('search-date', SearchPaginate );
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
-app.use(VCalendar, {});
+
 app.mount('#app');
 
 if ('serviceWorker' in navigator) {
