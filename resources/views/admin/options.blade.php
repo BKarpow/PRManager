@@ -21,6 +21,9 @@
                             <a href="{{route('admin.cache.clear')}}" class="btn btn-warning">
                                 Очистити кеш конфігурацій
                             </a> <!-- /.btn btn-warning -->
+                            <a href="{{route('admin.mail.telegram.test')}}" class="btn btn-success">
+                                Відправити в telegram те
+                            </a> <!-- /.btn btn-success -->
                             </div>
                             <!-- /.btn-group -->
 

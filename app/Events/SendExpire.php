@@ -27,7 +27,7 @@ class SendExpire
         $this->user = $user;
         $exps = $user->expiredDays();
         $this->isExp = $exps->count() > 0;
-        $this->message = "Перевірте ці продукти (продукт, скільки лишилось, кількість): \n";
+        $this->message = "<b>🔔 Звіт по термінах:</b>\n";
         $i = 1;
         $ex = [];
         $uniqCount = 0;
@@ -38,12 +38,16 @@ class SendExpire
                 continue;
             }
             $ex[$key] = true;
-            $this->message .= (string)$i .". ". $e->product->name . ": " . $e->days_remaining . " день(ів) (".$e->count.")";
-            $this->message .= "\n";
+            $this->message .= "🔹 {$i}. <a href='".route('date.show', ['dateProduct'=>$e->id])."'>".$e->product->name."</a>";
+            // $this->message .= (string)$i .". ". $e->product->name . ": " . $e->days_remaining . " день(ів) (".$e->count.")";
+            $this->message .= ": " . $e->days_remaining . " день(ів) (".$e->count.")\n";
             $i++;
         }
         $ex = null;
-        // $this->message .= "Кількість копій: " . (string)$uniqCount . "\n";
+        $this->message .= "\n";
+        $this->message .= "Термінів: ".(string)$exps->count();
+        $this->message .= "\n👇👇👇 Повний список термінів тут 👇👇👇\n";
+        $this->message .= "👉 <a href='".url('/')."'>ПЕРЕЙТИ В Теміни</a>";
 
     }
 

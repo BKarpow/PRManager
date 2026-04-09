@@ -13,6 +13,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/user/clear/cache', [AdminUserController::class, 'clearCache'])->name('admin.user.clearCache');
 
     Route::get('/mail/test', [AdminController::class, 'sendTestMail'])->name('admin.mail.test');
+    Route::get('/mail/telegram/test', [AdminController::class, 'sendTestTelegramExps'])
+    ->name('admin.mail.telegram.test');
 
     Route::get('/cache/clear', [AdminController::class, 'clearConfigCache'])->name('admin.cache.clear');
     Route::get('/optios', [AdminController::class, 'optionsPage'])->name('admin.options');

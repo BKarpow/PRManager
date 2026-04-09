@@ -154,6 +154,7 @@ class User extends Authenticatable
                 ->where('group_id', (int)$this->configDefaultGroup())
                 ->having('days_remaining', '>=', 0)
                 ->having('days_remaining', '<=', $this->configDefaultDaysex())
+                ->limit(75)
                 ->get();
         });
         // return DateProduct::query()

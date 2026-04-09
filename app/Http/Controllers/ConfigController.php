@@ -20,7 +20,7 @@ class ConfigController extends Controller
     function showConfigPage()
     {
         return view('config', [
-            'configShop' => Auth::user()->configDefaultShop(),
+            // 'configShop' => Auth::user()->configDefaultShop(),
             'configGroup' => Auth::user()->configDefaultGroup(),
             'groups' => (Auth::user()->defaultShop()) ? Auth::user()->defaultShop()->groups()->get() : [],
             'shops' => Shop::orderBy('name', 'asc')->get(),
@@ -30,11 +30,11 @@ class ConfigController extends Controller
     function saveConfig(Request $request)
     {
         $request->validate([
-            'shop' => 'required|numeric|exists:shops,id',
+            // 'shop' => 'required|numeric|exists:shops,id',
             'daysex' => 'required|numeric|max:15|min:1',
             // 'group' => 'required|numeric|exists:group_products,id'
         ]);
-        ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_SHOP], ['value'=>$request->shop]);
+        // ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_SHOP], ['value'=>$request->shop]);
         ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_GROUP], ['value'=>$request->group ?? 0]);
         ConfigsUser::updateOrCreate(['user_id'=>Auth::id(),'key'=>User::CONF_KEY_EXPS_DAYS],
          ['value'=>$request->daysex ?? 0]);

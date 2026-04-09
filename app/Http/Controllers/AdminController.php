@@ -45,7 +45,9 @@ class AdminController extends Controller
         //php artisan config:clear
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
-        return redirect()->back()->withStatus("Кеш конфігурації очищено");
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        return redirect()->back()->withStatus("Кеші (config, cache, view, route) очищено");
     }
 
     public function sendTestMail()
@@ -57,5 +59,11 @@ class AdminController extends Controller
     public function optionsPage()
     {
         return view('admin.options');
+    }
+
+    public function sendTestTelegramExps(Request $request)
+    {
+        event(new \App\Events\SendExpire($request->user()));
+        return redirect()->back()->withStatus("Відправлено повідомлення в telegram.");
     }
 }

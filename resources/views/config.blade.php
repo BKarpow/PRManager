@@ -14,21 +14,6 @@
                             @csrf
                         <select-shop></select-shop>
 
-
-
-                        <div class="my-2 p-1">
-                            <label> Магазин за замовчуванням id: {{$configShop}}
-                                <select required name='shop' class="form-select" aria-label="Вибір магазину за замовчуванням">
-                                    <option disabled @if ($configShop == 0) selected @endif >Обрати магазин ...</option>
-                                    @foreach ($shops as $shop)
-
-                                        <option value="{{$shop->id}}" @if ($configShop == $shop->id) selected @endif>{{$shop->name}}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-
-                        </div>
-                        <!-- /.my-2 p-1 -->
                         <div class="my-2 p-1">
                             <label> Група товарів за замовчуванням id: {{$configGroup}}
                                 <select name='group' class="form-select" aria-label="Вибір магазину за замовчуванням">
