@@ -21,9 +21,17 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <h2>Лупа</h2>
-                                <zoom></zoom>
+                                <p-input></p-input>
                             </div>
                             <!-- /.col-md-10 -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>ToDo</h3>
+                                <todo></todo>
+                            </div>
+                            <!-- /.col-md-4 -->
                         </div>
                         <!-- /.row -->
                         <div class="row">

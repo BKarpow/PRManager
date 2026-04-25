@@ -6,6 +6,7 @@
 </head>
 <body >
     <div id="app" >
+
         <pwa></pwa>
         @include('layouts.nav')
         @if (session('status'))
@@ -26,7 +27,9 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <fab url="{{ route('date.create') }}"> </fab>
+        @if (!Route::is('date.create'))
+            <fab url="{{ route('date.create') }}"> </fab>
+        @endif
     </div>
 </body>
 </html>

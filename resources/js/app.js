@@ -56,6 +56,8 @@ import FloatingActionButton from './components/FloatingActionButton.vue';
 import InstallPWA from './components/InstallPWA.vue';
 import SearchPaginate from './components/SearchPaginate.vue';
 import CreateInventory from './components/CreateInventory.vue';
+import InputPassword from './components/InputPassword.vue';
+import ToDoList from './components/ToDoList.vue';
 app.component('delete-btn', DeleteButton);
 app.component('input-date', InputDate);
 app.component('example-component', ExampleComponent);
@@ -73,6 +75,8 @@ app.component('pwa', InstallPWA  );
 app.component('search-date', SearchPaginate );
 app.component("v-select", vSelect);
 app.component("create-inventory", CreateInventory);
+app.component("p-input", InputPassword);
+app.component("todo", ToDoList );
 
 /**
  * The following block of code may be used to automatically register your

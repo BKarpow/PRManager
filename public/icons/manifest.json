@@ -1,0 +1,20 @@
+{
+    "name": "ProExp",
+    "short_name": "ProExp",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#86a790",
+    "icons": [
+        {
+            "src": "/build/icons/i256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/build/icons/i512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

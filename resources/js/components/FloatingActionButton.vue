@@ -3,13 +3,11 @@
     <a
       @click="$emit('click')"
       :href="url"
-      class="btn btn-primary btn-fab shadow-lg"
+      class="btn btn-mb btn-fab shadow-lg"
       type="button"
-      title="Додати продукт"
+      title="Додати новий термін"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-</svg>
+       <i class="bi bi-node-plus-fill"></i>
     </a>
   </div>
 </template>
@@ -24,7 +22,7 @@ defineProps(['url']);
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 1050; /* Вище за більшість елементів Bootstrap */
+  z-index: 1049; /* Вище за більшість елементів Bootstrap */
 }
 
 .btn-fab {
@@ -40,11 +38,15 @@ defineProps(['url']);
 
 .btn-fab:hover {
   transform: scale(1.1) rotate(90deg);
-  background-color: #0b5ed7; /* Трохи темніший синій */
+  background-color: var(--main-bg-color);
 }
 
 .btn-fab:active {
   transform: scale(0.95);
+}
+.btn-mb {
+    background: var(--main-bg-color);
+    color: white;
 }
 
 /* Адаптація для мобільних пристроїв */

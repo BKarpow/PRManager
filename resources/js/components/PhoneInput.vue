@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <label for="phone" class="form-label">Номер телефону</label>
+    <label for="phone" class="form-label">Номер телефону <i class="bi bi-telephone-plus"></i> <i class="bi bi-telegram"></i></label>
     <input
       type="tel"
       id="phone"
