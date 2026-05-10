@@ -12,6 +12,11 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'barcode',
+    ];
+
     public function groups()
     {
         return $this->belongsTo(GroupProduct::class, 'group_id', 'id');

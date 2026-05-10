@@ -29,6 +29,22 @@
 
                         </div>
                         <!-- /.mb-2 row -->
+                        <div class="mb-2 row">
+                            <h3>Іпортувати список продуктів !</h3>
+<form action="{{route('import.product.csv')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Оберіть CSV файл</label>
+                            <input type="file" name="file" id="file" class="form-control" required>
+
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Завантажити та імпортувати</button>
+                        </div>
+                    </form>
+                        </div>
+                        <!-- /.mb-2 row -->
 
                     </div>
                 </div>

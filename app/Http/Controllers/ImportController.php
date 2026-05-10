@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\DateProduct;
 use Illuminate\Support\Facades\Auth;
 use App\Imports\DateProductImport;
+use App\Imports\ImportProductList;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
@@ -122,5 +123,18 @@ class ImportController extends Controller
         Excel::import(new DateProductImport, $request->file('file'));
 
         return back()->with('status', 'Excel файл успішно імпортовано!');
+    }
+
+
+    public function uploadProductExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048'
+        ]);
+
+        // Один рядок для всього імпорту
+        Excel::import(new ImportProductList, $request->file('file'));
+
+        return back()->with('status', 'CSV Список продуктів успішно імпортовано!');
     }
 }

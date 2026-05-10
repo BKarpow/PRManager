@@ -19,7 +19,7 @@
             </button>
           </div>
         </div>
-        <h1 class="title">To-Do List</h1>
+        <h1 class="title">To-Do</h1>
         <div class="progress-bar">
           <div class="progress-fill" :style="{ width: progressPercent + '%' }"></div>
         </div>
