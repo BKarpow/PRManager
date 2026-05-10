@@ -35,6 +35,17 @@ class DateProductController extends Controller
         ]);
     }
 
+    public function userExps(User $user, Request $request)
+    {
+        $products = $user->expProductsAll();
+        $exps = $user->beforeExpProductsAll();
+        return view('exp.userExps', [
+            'data' => $products,
+            'exps' => $exps,
+            'user' => $user
+        ]);
+    }
+
     public function expired()
     {
 

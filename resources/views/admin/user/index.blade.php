@@ -31,7 +31,7 @@
                                                 <th >
 
                                                     <div class="my-2">
-                                                        <a href="{{route('date.show', ['dateProduct' => $item])}}" class="btn btn-primary">
+                                                        <a href="{{route('date.userExps', ['user' => $item])}}" class="btn btn-primary">
                                                          {{ $item->name }} </a> <!-- /.btn btn-primary -->
                                                     </div>
                                                     <div class="mt-1">
