@@ -100,6 +100,12 @@ export default {
             itemsList: [],
         }
     },
+    watch: {
+        inventId(n, o) {
+            console.debug("Select invent");
+            this.getItemsList();
+        }
+    },
     computed:{
         curdateformat() {
             const d = new Date();

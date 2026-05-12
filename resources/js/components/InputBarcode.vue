@@ -1,6 +1,7 @@
 <template>
     <div class="barcode-input-container">
         <div class="input-group">
+
             <input
                 type="text"
                 v-model="barcode"
@@ -77,6 +78,7 @@
 
 <script>
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+
 
 export default {
     name: 'BarcodeInput',
@@ -256,11 +258,18 @@ export default {
                 this.validationStatus = 'valid';
                 this.errorMessage = '';
                 this.$emit('valid', this.barcode);
+                beep();
             } else {
                 this.validationStatus = 'invalid';
                 this.errorMessage = 'Невірний штрих-код EAN-13';
                 this.$emit('invalid', this.barcode);
+                beep(450, 700, 0.2);
+                beep(450, 700, 0.2);
             }
+        },
+
+        testBeep(){
+            beep();
         },
 
         validateEAN13(barcode) {

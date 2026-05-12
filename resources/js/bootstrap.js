@@ -84,4 +84,28 @@ window.hexHash = (str) => {
         hash |= 0;
     }
     return (hash >>> 0).toString(16); // Конвертуємо в беззнакове і в HEX
-}
+};
+
+window.beep =  (duration = 400, frequency = 1750, volume = 0.3) => {
+    // Створюємо контекст аудіо
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Створюємо осцилятор (генератор звуку)
+    const oscillator = audioCtx.createOscillator();
+    // Створюємо вузол гучності (щоб уникнути клацання в кінці)
+    const gainNode = audioCtx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    // Налаштування
+    oscillator.type = 'sine'; // Тип хвилі: 'sine', 'square', 'sawtooth', 'triangle'
+    oscillator.frequency.value = frequency; // Частота в Герцах (800-1000 - типовий сканер)
+
+    // Плавне затухання гучності, щоб звук не "обривався" різко
+    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration / 1000);
+
+    oscillator.start(audioCtx.currentTime);
+    oscillator.stop(audioCtx.currentTime + duration / 1000);
+};
