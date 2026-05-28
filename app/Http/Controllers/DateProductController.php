@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\ConfigsUser;
 use App\Models\Product;
 use App\Models\GroupProduct;
+use App\Rules\Ean13;
 use App\Services\BarcodeHandle;
 
 class DateProductController extends Controller
@@ -173,11 +174,13 @@ class DateProductController extends Controller
     public function edit(DateProduct $dateProduct)
     {
         $this->authorize('update', $dateProduct);
-        return view('exp.edit', [
-            'item' => $dateProduct,
-            'groups' => Auth::user()->defaultShop()->groups()->get()
+        return view(
+            'exp.edit',
+            [
+                'item' => $dateProduct,
+                'groups' => Auth::user()->defaultShop()->groups()->get()
             ]
-            );
+        );
     }
 
     /**
@@ -235,20 +238,42 @@ class DateProductController extends Controller
     }
 
     public function search(Request $request)
-{
-    $search = $request->input('search');
+    {
+        $search = $request->input('search');
 
-    $expiries = DateProduct::with('product')
-        ->when($search, function ($query, $search) {
-            $query->whereHas('product', function ($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%");
-            });
-        })
-        ->where('group_id', '=', Auth::user()->configDefaultGroup())
-        ->whereRaw('`end` >= CURDATE()')
-        ->orderBy('end', 'asc')
-        ->paginate(10); // Повертає об'єкт LengthAwarePaginator
+        $expiries = DateProduct::with('product')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('product', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%");
+                });
+            })
+            ->where('group_id', '=', Auth::user()->configDefaultGroup())
+            ->whereRaw('`end` >= CURDATE()')
+            ->orderBy('end', 'asc')
+            ->paginate(10); // Повертає об'єкт LengthAwarePaginator
 
-    return response()->json($expiries);
-}
+        return response()->json($expiries);
+    }
+
+    public function searchForBarcode(Request $request)
+    {
+
+        $request->validate([
+            'barcode' => ['required', 'numeric', new Ean13]
+        ]);
+        $search = $request->barcode;
+
+        $expiries = DateProduct::with('product')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('product', function ($q) use ($search) {
+                    $q->where('barcode', '=', $search);
+                });
+            })
+            ->where('group_id', '=', Auth::user()->configDefaultGroup())
+            ->whereRaw('`end` >= CURDATE()')
+            ->orderBy('end', 'asc')
+            ->limit(10)->get(); // Повертає об'єкт LengthAwarePaginator
+
+        return response()->json($expiries);
+    }
 }
