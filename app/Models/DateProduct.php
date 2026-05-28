@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\BarcodeHandle;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class DateProduct extends Model
 {
@@ -39,6 +41,20 @@ class DateProduct extends Model
     public function setImportMode():void
     {
         $this->isImport = true;
+    }
+
+    /**
+     * Отримуємо кількість днів до дати.
+     */
+    protected function days(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                // today() повертає 00:00 сьогоднішнього дня
+                // diffInDays повертає різницю у цілих днях
+                return (int) now()->startOfDay()->diffInDays($this->end, false);
+            },
+        );
     }
 
     public function isImportMode(): bool

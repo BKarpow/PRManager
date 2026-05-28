@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\GroupProduct;
 use App\Rules\Ean13;
 use App\Services\BarcodeHandle;
+use App\Http\Resources\SearchForBarcodeResource;
 
 class DateProductController extends Controller
 {
@@ -273,7 +274,6 @@ class DateProductController extends Controller
             ->whereRaw('`end` >= CURDATE()')
             ->orderBy('end', 'asc')
             ->limit(10)->get(); // Повертає об'єкт LengthAwarePaginator
-
-        return response()->json($expiries);
+        return SearchForBarcodeResource::collection($expiries);
     }
 }
