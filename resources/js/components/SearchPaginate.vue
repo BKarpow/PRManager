@@ -7,6 +7,10 @@
       </div>
 
       <div class="card-body">
+        <div class="mb-2">
+            <FindDateProduct />
+        </div>
+        <!-- /.input-group mb-2 -->
         <div class="input-group mb-4">
           <input
             v-model="searchQuery"
@@ -64,6 +68,7 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import axios from 'axios';
+import FindDateProduct from "./FindDateProduct.vue";
 
 const searchQuery = ref('');
 const expiries = ref([]);

@@ -45,7 +45,7 @@ Route::get($prefixRoute.'/search/', [DateProductController::class, 'search'])
 ->name('date.search');
 
 // searchForBarcode
-Route::get($prefixRoute.'/search/barcode', [DateProductController::class, 'searchForBarcode'])
+Route::post($prefixRoute.'/search/barcode', [DateProductController::class, 'searchForBarcode'])
 ->name('date.search.barcode');
 
 
