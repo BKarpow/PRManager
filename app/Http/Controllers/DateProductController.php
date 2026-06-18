@@ -273,7 +273,7 @@ class DateProductController extends Controller
             // ->where('group_id', '=', Auth::user()->configDefaultGroup())
             ->whereRaw('`end` >= CURDATE()')
             ->orderBy('end', 'asc')
-            ->limit(10)->get(); // Повертає об'єкт LengthAwarePaginator
+            ->limit(15)->get(); // Повертає об'єкт LengthAwarePaginator
         return SearchForBarcodeResource::collection($expiries);
     }
 }
