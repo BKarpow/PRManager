@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div id="text">
+		
+	</div>
+
+	<script>
+		const data = "PR121570011499T20260526162755D348";
+		let parsePrice = (code) => {
+			const data = {
+				code: 0,
+				price: 0.0,
+				date: "",
+				time: "",
+				paramOther: "",
+				raw: ""
+			};
+			
+			if (code.length == 0) return NaN;
+			data.code = Number(code.substr(2,5));
+			data.price = Number(`${Number(code.substr(7,5))}.${Number(code.substr(12,2))}`);
+			data.date = `${code.substr(15,4)}.${code.substr(19,2)}.${code.substr(21,2)}`;
+			data.time = `${code.substr(23,2)}:${code.substr(25,2)}:${code.substr(27,2)}`;
+			data.paramOther = code.substr(29,4);
+			data.raw = code;
+			return data;
+		}
+		const $el = document.getElementById('text');
+		$el.textContent = parsePrice(data).price;
+	</script>
+</body>
+</html>

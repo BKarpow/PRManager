@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DateProductController;
+use App\Http\Controllers\Api\ExpiryController;
 
 $prefixRoute = "/date";
 $nameAlias = 'date.';
@@ -56,6 +57,9 @@ Route::get($prefixRoute.'/delete-image/{dateProduct}', [DateProductController::c
 
 Route::get($prefixRoute.'/show/user/{user}', [DateProductController::class, 'userExps'])
 ->name('date.userExps');
+
+Route::post($prefixRoute.'/api/analyze-expiry', [ExpiryController::class, 'analyze'])
+->name('date.analyze');
 
 $prefixRoute = null;
 $nameAlias = null;

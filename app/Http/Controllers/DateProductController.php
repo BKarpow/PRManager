@@ -270,7 +270,7 @@ class DateProductController extends Controller
                     $q->where('barcode', '=', $search);
                 });
             })
-            ->where('group_id', '=', Auth::user()->configDefaultGroup())
+            // ->where('group_id', '=', Auth::user()->configDefaultGroup())
             ->whereRaw('`end` >= CURDATE()')
             ->orderBy('end', 'asc')
             ->limit(10)->get(); // Повертає об'єкт LengthAwarePaginator

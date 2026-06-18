@@ -45,6 +45,10 @@
                     </form>
                         </div>
                         <!-- /.mb-2 row -->
+                        <div class="mb-2 row">
+                            <date-scaner></date-scaner>
+                        </div>
+                        <!-- /.mb-2 row -->
 
                     </div>
                 </div>
