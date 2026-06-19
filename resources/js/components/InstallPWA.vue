@@ -25,9 +25,13 @@ onMounted(() => {
 
 const installApp = async () => {
   if (!installEvent.value) return;
-
+    const otherpwa = Bool(window.sessionStorage.getItem('pwaother'));
   // Показуємо системний діалог встановлення
-  installEvent.value.prompt();
+  if (!otherpwa)
+  {
+    installEvent.value.prompt();
+  }
+
 
   // Очікуємо вибору користувача
   const { outcome } = await installEvent.value.userChoice;
@@ -36,6 +40,7 @@ const installApp = async () => {
     console.log('Користувач погодився на встановлення');
   } else {
     console.log('Користувач відхилив встановлення');
+    window.sessionStorage.setItem('pwaother', true);
   }
 
   // Очищуємо подію, вона одноразова
