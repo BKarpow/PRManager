@@ -63,7 +63,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('product.index', [
-            'data' => Product::orderBy('name', 'asc')->paginate(100),
+            'data' => Product::orderBy('name', 'asc')->paginate(50),
         ]);
     }
 

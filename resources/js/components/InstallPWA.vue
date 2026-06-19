@@ -40,7 +40,7 @@ const installApp = async () => {
     console.log('Користувач погодився на встановлення');
   } else {
     console.log('Користувач відхилив встановлення');
-    window.sessionStorage.setItem('pwaother', true);
+
   }
 
   // Очищуємо подію, вона одноразова
@@ -50,6 +50,7 @@ const installApp = async () => {
 
 const dismissBanner = () => {
   showBanner.value = false;
+  window.sessionStorage.setItem('pwaother', true);
 };
 </script>
 

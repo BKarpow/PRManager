@@ -17,7 +17,7 @@
                                         @csrf
                                         <div class="mb-2">
                                             <create-product></create-product>
-                                            <input-date />
+                                            
                                                 @error('barcode')
                                                     <div class="mt-1 alert alert-danger">
                                                         {{ $message }}
