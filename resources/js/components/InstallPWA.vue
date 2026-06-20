@@ -12,7 +12,7 @@ onMounted(() => {
     // Зберігаємо подію, щоб викликати її пізніше
     installEvent.value = e;
     // Показуємо наш власний UI (банер або кнопку)
-    showBanner.value = !Bool(window.sessionStorage.getItem('pwaother'));
+    showBanner.value = !Boolean(window.sessionStorage.getItem('pwaother'));
   });
 
   // Ховаємо банер, якщо додаток вже встановлено
