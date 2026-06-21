@@ -38,9 +38,9 @@ class SendExpire
                 continue;
             }
             $ex[$key] = true;
-            $this->message .= "🔹 {$i}. <a href='".route('date.show', ['dateProduct'=>$e->id])."'>".$e->product->name."</a>";
+            $this->message .= "🔹 {$i}. <a href='".route('date.show', ['dateProduct'=>$e->id])."'>".$e->productName($user->id)."</a>";
             // $this->message .= (string)$i .". ". $e->product->name . ": " . $e->days_remaining . " день(ів) (".$e->count.")";
-            $this->message .= ": " . $e->days_remaining . " день(ів) (".$e->count.")\n";
+            $this->message .= ": " . $e->days_remaining . " день(ів) \n";
             $i++;
         }
         $ex = null;

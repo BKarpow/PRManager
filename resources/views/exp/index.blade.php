@@ -46,7 +46,7 @@
                                                     <div class="my-2">
                                                         <a href="{{route('date.show', ['dateProduct' => $item])}}"
                                                             class="btn btn btn-success">
-                                                         {{ $item->product->name }} </a> <!-- /.btn btn-primary -->
+                                                         {{ $item->productName() }} </a> <!-- /.btn btn-primary -->
                                                     </div>
                                                     <div class="mt-1">
                                                         До: {{$item->end->format('d.m.Y')}}

@@ -124,33 +124,18 @@ class DateProductController extends Controller
     public function store(StoreDateProductRequest $request)
     {
         $p = Product::whereBarcode($request->barcode)->first();
-        $pa = NameProductUserAlias::where('product_id', $p->id)->first();
         if (!$p) {
             $p = new Product();
-            $pa = new NameProductUserAlias();
-            $pa->user_id = Auth::id();
             $p->name = $request->name;
-            $pa->name = $request->name;
             $p->barcode = $request->barcode;
             $p->description = $request->comment ?? "";
             $p->save();
-            $pa->product_id = $p->id;
-            $pa->save();
-        } else {
-            if (!$pa) {
-                $pa = new NameProductUserAlias();
-                $pa->user_id = Auth::id();
-                $pa->name = $request->name;
-                $pa->product_id = $p->id;
-                $pa->save();
-            }
         }
         if ($request->isEditProductInfo == "true") {
-            // $p->name = $request->name;
-            // $p->description = $request->comment ?? "";
-            // $p->save();
-            $pa->name = $request->name;
+            $pa = new NameProductUserAlias();
             $pa->user_id = Auth::id();
+            $pa->name = $request->name;
+            $pa->product_id = $p->id;
             $pa->save();
         }
         $d = new DateProduct();
@@ -161,8 +146,7 @@ class DateProductController extends Controller
         $d->end = $request->end;
         $d->count = $request->count ?? 1;
         $d->save();
-
-        return redirect()->route('date.index')->withStatus('Додано термін: ' . $d->product->name);
+        return redirect()->route('date.index')->withStatus('Додано термін: ' . $d->productName());
     }
 
     /**

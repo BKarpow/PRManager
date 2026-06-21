@@ -9,4 +9,10 @@ class NameProductUserAlias extends Model
 {
     /** @use HasFactory<\Database\Factories\NameProductUserAliasFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'name'
+    ];
 }

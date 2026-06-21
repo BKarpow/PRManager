@@ -38,7 +38,11 @@
                             <!-- /.btn btn-success -->
                         </div>
                         <!-- /.mb-2 p-1 -->
-                        <h1>{{ $t->product->name }}</h1>
+                        <h1>{{ $t->productName() }}</h1>
+                        <div class="my-1">
+                            <small>Оригінальна назва: {{$t->product->name}}</small>
+                        </div>
+                        <!-- /.my-1 -->
                         <div class="container">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-md-4">
@@ -115,7 +119,7 @@
                                         <tbody>
                                             @foreach ($products as $p)
                                                 <tr>
-                                                    <td>{{ $p->product->name }}</td>
+                                                    <td>{{ $p->productName() }}</td>
                                                     <td>{{ $p->start }}</td>
                                                     <td>
                                                         <div><strong>

@@ -39,6 +39,6 @@ class SendTelegramMessageJob implements ShouldQueue
             'chat_id' => $this->chatId,
             'text' => $this->text
         ]);
-        Log::channel('telegram')->debug($resp);
+        // Log::channel('telegram')->debug($resp);
     }
 }

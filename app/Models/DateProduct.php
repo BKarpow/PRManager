@@ -8,6 +8,7 @@ use App\Services\BarcodeHandle;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Auth;
 
 class DateProduct extends Model
 {
@@ -67,9 +68,21 @@ class DateProduct extends Model
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
-    public function productAlias()
+    // public function productAlias()
+    // {
+    //     return $this->hasOne(NameProductUserAlias::class, 'product_id', 'product_id');
+    // }
+
+    public function productName($uid = null):string
     {
-        return $this->hasOne(NameProductUserAlias::class, 'product_id', 'product_id');
+        $p = NameProductUserAlias::where([
+            ['user_id', '=',(!$uid) ? Auth::id() : $uid],
+            ['product_id', '=', $this->product_id]
+        ])->first();
+        if(!$p) {
+            return $this->product->name;
+        }
+        return $p->name;
     }
 
     public function user()
