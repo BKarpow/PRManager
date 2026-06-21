@@ -22,31 +22,46 @@ class ProductController extends Controller
                 'json_response' => ['name' => $res->name, 'id' => $res->id, 'comment' => $res->comment], // якщо очікується JSON
             ];
         }
-
+        $url = "https://world.openfoodfacts.org/api/v2/product/{$code}.json";
         $response = Http::withHeaders([
-            'User-Agent' => "okhttp/3.14.9",
-        ])->get("http://195.201.133.94:8000/bestbefore/v1/barcode", ['barcode' => $code]);
-        if ($response->json()['name'] != null) {
+            'User-Agent' => 'LaravelApp - Version 1.0 - ' . config('app.url')
+        ])->timeout(5)->get($url);
+
+        // Перевіряємо, чи сервер взагалі відповів успішно (код 200)
+        if ($response->failed()) {
+            return [
+                'status_code' => 502,
+                'response' => "",
+                'isDB' => false,
+                'json_response' => ['name' => ''], // якщо очікується JSON
+            ];
+        }
+        $data = $response->json();
+        if (isset($data['status']) && $data['status'] === 1) {
+            $product = $data['product'];
+            $productName = $product['product_name_uk']
+                ?? $product['product_name']
+                ?? '';
 
             $p = new Product();
             $p->barcode = $code;
-            $p->name = $response->json()['name'];
+            $p->name = $productName;
             $p->save();
+
+            return [
+                'status_code' => $response->status(),
+                'response' => $response->body(),
+                'isDB' => false,
+                'json_response' => ['name' => $productName], // якщо очікується JSON
+            ];
         } else {
             return [
                 'status_code' => 205,
                 'response' => "",
                 'isDB' => false,
-                'json_response' => "", // якщо очікується JSON
+                'json_response' => ['name' => ''], // якщо очікується JSON
             ];
         }
-
-        return [
-            'status_code' => $response->status(),
-            'response' => $response->body(),
-            'isDB' => false,
-            'json_response' => $response->json(), // якщо очікується JSON
-        ];
     }
 
     public function getProductName(Request $request)

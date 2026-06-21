@@ -12,7 +12,7 @@
 
 	<script>
 		const data = "PR121570011499T20260526162755D348";
-		let parsePrice = (code) => {
+		const parsePrice = (code) => {
 			const data = {
 				code: 0,
 				price: 0.0,
@@ -21,7 +21,6 @@
 				paramOther: "",
 				raw: ""
 			};
-			
 			if (code.length == 0) return NaN;
 			data.code = Number(code.substr(2,5));
 			data.price = Number(`${Number(code.substr(7,5))}.${Number(code.substr(12,2))}`);
