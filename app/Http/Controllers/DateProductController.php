@@ -132,7 +132,11 @@ class DateProductController extends Controller
             $p->save();
         }
         if ($request->isEditProductInfo == "true") {
-            $pa = new NameProductUserAlias();
+            $pa = NameProductUserAlias::where([
+                ['user_id', '=', $request->user()->id],
+                ['product_id', '=', $p->id]
+            ])->first();
+            if (!$pa) $pa = new NameProductUserAlias();
             $pa->user_id = Auth::id();
             $pa->name = $request->name;
             $pa->product_id = $p->id;
