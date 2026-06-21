@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('name_product_user_aliases', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('name')->comment('Назва продукту для конкретного користувача.');
+            $table->string('desc')->nullable();
+            $table->boolean('favorit')->default(false);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

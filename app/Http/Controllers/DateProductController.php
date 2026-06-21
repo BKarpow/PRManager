@@ -15,6 +15,7 @@ use App\Models\GroupProduct;
 use App\Rules\Ean13;
 use App\Services\BarcodeHandle;
 use App\Http\Resources\SearchForBarcodeResource;
+use App\Models\NameProductUserAlias;
 
 class DateProductController extends Controller
 {
@@ -123,17 +124,34 @@ class DateProductController extends Controller
     public function store(StoreDateProductRequest $request)
     {
         $p = Product::whereBarcode($request->barcode)->first();
+        $pa = NameProductUserAlias::where('product_id', $p->id)->first();
         if (!$p) {
             $p = new Product();
+            $pa = new NameProductUserAlias();
+            $pa->user_id = Auth::id();
             $p->name = $request->name;
+            $pa->name = $request->name;
             $p->barcode = $request->barcode;
             $p->description = $request->comment ?? "";
             $p->save();
+            $pa->product_id = $p->id;
+            $pa->save();
+        } else {
+            if (!$pa) {
+                $pa = new NameProductUserAlias();
+                $pa->user_id = Auth::id();
+                $pa->name = $request->name;
+                $pa->product_id = $p->id;
+                $pa->save();
+            }
         }
         if ($request->isEditProductInfo == "true") {
-            $p->name = $request->name;
-            $p->description = $request->comment ?? "";
-            $p->save();
+            // $p->name = $request->name;
+            // $p->description = $request->comment ?? "";
+            // $p->save();
+            $pa->name = $request->name;
+            $pa->user_id = Auth::id();
+            $pa->save();
         }
         $d = new DateProduct();
         $d->group_id = $request->group;
