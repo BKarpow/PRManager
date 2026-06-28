@@ -41,4 +41,8 @@ return [
     'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
 ],
 
+'gemini' => [
+    'key' => env('GEMINI_API_KEY'),
+],
+
 ];

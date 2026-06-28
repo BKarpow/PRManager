@@ -104,10 +104,18 @@
                     </label>
                 </div>
                 <div class="green-bg" v-if="!isCountDays">
+                    <div class="my-1 d-flex justify-content-center align-items-center">
+                        <button class="btn btn-success" type="button" v-if="!showDetectExp" @click="showDetectExp = !showDetectExp">
+                            {{ (showDetectExp) ? "Сховати детектор" : "Розпізнати дату" }}
+                            </button>
+                            <DetectExp @success="(e) => dtExp = e" v-if="showDetectExp" />
+                    </div>
+                    <!-- /.my-1 -->
                     <InputDate
                         ref="endDate"
                         @valid="initEndDate"
                         name-input="end"
+                        :value="dtExp"
                     />
                 </div>
                 <!-- /.green-bg -->
@@ -202,6 +210,7 @@ import InputDate from "./InputDate.vue";
 import ImageUploader from "./ImageUploader.vue";
 import SelectGroup from "./SelectGroup.vue";
 import ShowMagnify from "./ShowMagnify.vue";
+import DetectExp from "./DetectExp.vue";
 import axios from "axios";
 
 export default {
@@ -212,6 +221,7 @@ export default {
         InputDate,
         SelectGroup,
         ShowMagnify,
+        DetectExp,
     },
     data() {
         return {
@@ -238,6 +248,8 @@ export default {
             groupId: 0,
             dateExists: false,
             isNewProduct: false,
+            showDetectExp: false,
+            dtExp: ""
         };
     },
     computed: {

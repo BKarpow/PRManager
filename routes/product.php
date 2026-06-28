@@ -30,5 +30,8 @@ Route::post($prefixRoute.'/new', [ProductController::class, 'store'])
 Route::post($prefixRoute.'/getname', [ProductController::class, 'getProductName'])
 ->name('product.getname');
 
+Route::post($prefixRoute.'/detect/exp', [ImageProductController::class, 'detectExpiryDate'])
+->name('detect.exp');
+
 $prefixRoute = null;
 

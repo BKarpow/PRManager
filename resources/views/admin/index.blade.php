@@ -71,6 +71,10 @@
                             <!-- /.list-group -->
                         </div>
                         <!-- /.col-md-3 -->
+                        <div class="col-md-3">
+                            <detect-exp></detect-exp>
+                        </div>
+                        <!-- /.col-md-3 -->
                        </div>
                        <!-- /.row -->
                     </div>
