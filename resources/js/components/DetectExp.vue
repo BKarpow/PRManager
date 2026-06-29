@@ -62,8 +62,25 @@ const captureAndDetect = async () => {
   const canvas = canvasRef.value;
   const context = canvas.getContext('2d');
 
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  // 🌟 Оптимальний розмір для ШІ (максимум 800 пікселів по більшій стороні)
+  const maxDimension = 800;
+  let width = video.videoWidth;
+  let height = video.videoHeight;
+
+  // Пропорційно зменшуємо ширину та висоту
+  if (width > maxDimension || height > maxDimension) {
+    if (width > height) {
+      height = Math.round((height * maxDimension) / width);
+      width = maxDimension;
+    } else {
+      width = Math.round((width * maxDimension) / height);
+      height = maxDimension;
+    }
+  }
+
+  // Встановлюємо зменшені розміри для canvas
+  canvas.width = width;
+  canvas.height = height;
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   canvas.toBlob(async (blob) => {
@@ -142,11 +159,7 @@ onBeforeUnmount(() => {
         :class="{ 'loading-blur': isLoading }"
       ></video>
 
-      <div v-if="isCameraOpen" class="scanner-overlay">
-        <div class="target-box">
-          <span class="tip-text">Наведіть камеру на дату</span>
-        </div>
-      </div>
+
 
       <div v-if="isLoading" class="loader-overlay">
         <div class="spinner"></div>

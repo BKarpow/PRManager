@@ -31,7 +31,7 @@ Route::post($prefixRoute.'/getname', [ProductController::class, 'getProductName'
 ->name('product.getname');
 
 Route::post($prefixRoute.'/detect/exp', [ImageProductController::class, 'detectExpiryDate'])
-->name('detect.exp');
+->middleware('throttle:5,1')->name('detect.exp');
 
 $prefixRoute = null;
 
