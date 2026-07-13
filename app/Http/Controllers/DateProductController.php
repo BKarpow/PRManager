@@ -16,6 +16,7 @@ use App\Rules\Ean13;
 use App\Services\BarcodeHandle;
 use App\Http\Resources\SearchForBarcodeResource;
 use App\Models\NameProductUserAlias;
+use App\Models\ScreenDateProduct;
 
 class DateProductController extends Controller
 {
@@ -142,6 +143,7 @@ class DateProductController extends Controller
             $pa->product_id = $p->id;
             $pa->save();
         }
+        $pathScreen = $request->input('pathScreenDate');
         $d = new DateProduct();
         $d->group_id = $request->group;
         $d->product_id = $p->id;
@@ -150,7 +152,17 @@ class DateProductController extends Controller
         $d->end = $request->end;
         $d->count = $request->count ?? 1;
         $d->save();
+        $this->saveScreenPath($pathScreen, (int)$d->id);
         return redirect()->route('date.index')->withStatus('Додано термін: ' . $d->productName());
+    }
+
+    private function saveScreenPath(?string $screenPath, int $dateId) {
+        if ($screenPath) {
+            $sd = new ScreenDateProduct();
+            $sd->date_id = $dateId;
+            $sd->path = $screenPath;
+            $sd->save();
+        }
     }
 
     /**

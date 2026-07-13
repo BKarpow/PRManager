@@ -104,11 +104,27 @@
                     </label>
                 </div>
                 <div class="green-bg" v-if="!isCountDays">
-                    <div class="my-1 d-flex justify-content-center align-items-center">
-                        <button class="btn btn-success" type="button" v-if="!showDetectExp" @click="showDetectExp = !showDetectExp">
-                            {{ (showDetectExp) ? "Сховати детектор" : "Розпізнати дату" }}
-                            </button>
-                            <DetectExp @success="(e) => dtExp = e" v-if="showDetectExp" />
+                    <div
+                        class="my-1 d-flex justify-content-center align-items-center"
+                    >
+                        <button
+                            class="btn btn-success"
+                            type="button"
+                            v-if="!showDetectExp"
+                            @click="showDetectExp = !showDetectExp"
+                        >
+                            {{
+                                showDetectExp
+                                    ? "Сховати детектор"
+                                    : "Розпізнати дату"
+                            }}
+                        </button>
+                        <DetectExp
+                            @success="(e) => (dtExp = e)"
+                            @ps="(e) => (pathScreenDate = e)"
+                            v-if="showDetectExp"
+                            :pid="idExistsProduct"
+                        />
                     </div>
                     <!-- /.my-1 -->
                     <InputDate
@@ -165,6 +181,7 @@
                 v-if="isExistsProduct"
                 v-model="idExistsProduct"
             />
+            <input type="hidden" name="pathScreenDate" v-model="pathScreenDate" />
             <input type="hidden" name="isExistsImage" v-model="isImageUpload" />
             <input
                 type="hidden"
@@ -249,7 +266,8 @@ export default {
             dateExists: false,
             isNewProduct: false,
             showDetectExp: false,
-            dtExp: ""
+            dtExp: "",
+            pathScreenDate: "",
         };
     },
     computed: {

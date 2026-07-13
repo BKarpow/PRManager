@@ -140,8 +140,17 @@ class ImageProductController extends Controller
 
         // 2. Беремо файл та конвертуємо його в Base64
         $imagePath = $request->file('image')->path();
+        $image = $request->file('image');
+        $path = $request->file('image')->store('screenDates', 'public');
         $mimeType = $request->file('image')->getMimeType();
         $base64Image = base64_encode(file_get_contents($imagePath));
+        $pid = $request->input('pid');
+            if ($pid && $p = Product::find($pid)) {
+                $i = new ImageProduct();
+                $i->product_id = $p->id;
+                $i->path = $path;
+                $i->save();
+            }
 
         // 3. Отримуємо API ключ із конфігу
         $apiKey = config('services.gemini.key');
@@ -202,9 +211,11 @@ class ImageProductController extends Controller
                 ]);
             }
 
+
             return response()->json([
                 'success' => true,
-                'data' => $resultData
+                'data' => $resultData,
+                'pathScreen' => $path,
             ]);
 
         } catch (\Exception $e) {

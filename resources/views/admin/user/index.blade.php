@@ -39,11 +39,16 @@
                                                     </div>
                                                     <!-- /.mt-1 -->
                                                     <div class="mt-1">
-                                                        <form action="{{route('admin.user.clearCache')}}" method="POST">
+                                                        <form action="" method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="user" value="{{$item->id}}">
+                                                            
+                                                            <div class="row my-1">
+                                                                <textarea name="msg" rows="10" cols="50" placeholder="Написати в Telegram" class="form-control"></textarea>
+                                                            </div>
+                                                            <!-- /.row -->
+
                                                             <button class="btn btn-warning">
-                                                                Очистити кеш
+                                                                Відправити
                                                             </button> <!-- /.btn btn-warning -->
                                                         </form>
                                                     </div>

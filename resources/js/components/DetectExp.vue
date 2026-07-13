@@ -3,7 +3,13 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 
 // Оголошуємо події (emits)
-const emit = defineEmits(['success', 'error']);
+const emit = defineEmits(['success', 'error', 'ps']);
+const props = defineProps({
+    pid: {
+        type: String,
+        default: null
+    }
+});
 
 // Стан компонента
 const videoRef = ref(null);
@@ -93,13 +99,18 @@ const captureAndDetect = async () => {
     }
 
     const formData = new FormData();
+    if (props.pid) {
+        formData.append('pid', String(props.pid));
+    }
     formData.append('image', blob, 'capture.jpg');
+
 
     try {
       const response = await axios.post(route('detect.exp'), formData);
 
       if (response.data.success) {
         const detectedDate = response.data.data.expiry_date;
+        emit('ps', response.data.pathScreen);
 
         if (detectedDate) {
           expiryDate.value = detectedDate;
@@ -138,6 +149,7 @@ const captureAndDetect = async () => {
 
 onMounted(() => {
   startCamera();
+  console.debug('PID: ', props.pid);
 });
 
 onBeforeUnmount(() => {
